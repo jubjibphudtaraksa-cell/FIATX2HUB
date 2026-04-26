@@ -1,0 +1,264 @@
+-- ===============================
+-- SAFE START
+-- ===============================
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+
+-- ===============================
+-- SERVICES
+-- ===============================
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+local Workspace = game:GetService("Workspace")
+
+local LP = Players.LocalPlayer
+local Camera = Workspace.CurrentCamera
+
+-- ===============================
+-- WINDUI
+-- ===============================
+local WindUI = loadstring(game:HttpGet(
+    "https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"
+))()
+
+-- ===============================
+-- COLORS (RED → ORANGE → YELLOW)
+-- ===============================
+local RED    = Color3.fromRGB(255, 60, 60)
+local ORANGE = Color3.fromRGB(255, 140, 0)
+local YELLOW = Color3.fromRGB(255, 230, 80)
+local TEXT   = Color3.fromRGB(40, 20, 10)
+
+local Accent = WindUI:Gradient({
+    ["0"] = {Color = RED, Transparency = 0},
+    ["50"] = {Color = ORANGE, Transparency = 0},
+    ["100"] = {Color = YELLOW, Transparency = 0}
+},{Rotation = 90})
+
+WindUI:AddTheme({
+    Name = "FIATX2_FIRE",
+    Accent = Accent,
+    Background = Accent,
+    Outline = ORANGE,
+    Text = TEXT,
+    Icon = YELLOW
+})
+
+WindUI:SetTheme("FIATX2_FIRE")
+
+-- ===============================
+-- WINDOW
+-- ===============================
+local Window = WindUI:CreateWindow({
+    Title = "FIATX2 HUB",
+    Icon = "rbxassetid://134810315636739",
+    Theme = "FIATX2_FIRE",
+    Size = UDim2.fromOffset(400, 250),
+
+    User = {
+        Enabled = true,
+        Name = LP.Name,
+        Image = "rbxthumb://type=AvatarHeadShot&id="..LP.UserId
+    }
+})
+local HomeTab = Window:Tab({Title = "Main", Icon = "menu"})
+local PlayerTab = Window:Tab({Title = "Player", Icon = "user"})
+local ESPTab = Window:Tab({Title = "ESP", Icon = "eye"})
+
+-- ===============================
+-- HOME
+-- ===============================
+HomeTab:Button({
+    Title = "บิน",
+    Callback = function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Fly-gui-v3-30439"))()
+    end
+})
+
+HomeTab:Button({
+    Title = "ล็อคหัว",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/MzugyTz9"))()
+    end
+})
+
+HomeTab:Button({
+    Title = "WallHop",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ScpGuest666/Random-Roblox-script/main/Roblox%20WallHop%20script"))()
+    end
+})
+
+HomeTab:Button({
+    Title = "ล่องหน",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/3Rnd9rHf"))()
+    end
+})
+
+-- ===============================
+-- PLAYER
+-- ===============================
+PlayerTab:Toggle({
+    Title = "เดินทะลุ",
+    Value = false,
+    Callback = function(v)
+        walkThroughEnabled = v
+    end
+})
+
+PlayerTab:Toggle({
+    Title = "กระโดดไม่จำกัด",
+    Value = false,
+    Callback = function(v)
+        infiniteJump = v
+    end
+})
+
+PlayerTab:Slider({
+    Title = "ความเร็ว",
+    Value = {Min = 16, Max = 120, Default = 16},
+    Callback = function(v)
+        local char = player.Character
+        if char and char:FindFirstChild("Humanoid") then
+            char.Humanoid.WalkSpeed = v
+        end
+    end
+})
+
+PlayerTab:Slider({
+    Title = "Power Jump",
+    Value = {Min = 50, Max = 200, Default = 100},
+    Callback = function(v)
+        local char = player.Character
+        if char and char:FindFirstChild("Humanoid") then
+            char.Humanoid.JumpPower = v
+        end
+    end
+})
+
+-- ===============================
+-- ESP TAB
+-- ===============================
+for k,_ in pairs(ESP) do
+    ESPTab:Toggle({
+        Title = "ESP "..k,
+        Value = false,
+        Callback = function(v)
+            ESP[k] = v
+        end
+    })
+end
+
+-- ===============================
+-- INFINITE JUMP
+-- ===============================
+UIS.JumpRequest:Connect(function()
+    if infiniteJump then
+        local char = player.Character
+        if char and char:FindFirstChild("Humanoid") then
+            char.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+        end
+    end
+end)
+
+-- ===============================
+-- WALK THROUGH
+-- ===============================
+RunService.RenderStepped:Connect(function()
+    if walkThroughEnabled then
+        local char = player.Character
+        if char then
+            for _,v in pairs(char:GetDescendants()) do
+                if v:IsA("BasePart") then
+                    v.CanCollide = false
+                end
+            end
+        end
+    end
+end)
+
+-- ===============================
+-- ESP SYSTEM
+-- ===============================
+local function createESP(plr)
+    if plr == player then return end
+
+    local char = plr.Character
+    if not char then return end
+
+    local hrp = char:FindFirstChild("HumanoidRootPart")
+    local hum = char:FindFirstChild("Humanoid")
+    if not hrp or not hum then return end
+
+    if ESPCache[plr] then return end
+
+    local billboard = Instance.new("BillboardGui")
+    billboard.Size = UDim2.new(4,0,5,0)
+    billboard.AlwaysOnTop = true
+    billboard.Adornee = hrp
+    billboard.Parent = hrp
+
+    local text = Instance.new("TextLabel")
+    text.Size = UDim2.new(1,0,1,0)
+    text.BackgroundTransparency = 1
+    text.TextScaled = true
+    text.TextColor3 = Color3.new(1,1,1)
+    text.Parent = billboard
+
+    ESPCache[plr] = {
+        gui = billboard,
+        label = text
+    }
+end
+
+local function removeESP(plr)
+    if ESPCache[plr] then
+        ESPCache[plr].gui:Destroy()
+        ESPCache[plr] = nil
+    end
+end
+
+RunService.RenderStepped:Connect(function()
+    for _,plr in pairs(Players:GetPlayers()) do
+        if plr ~= player then
+            if ESP.Name or ESP.Health or ESP.Distance then
+                createESP(plr)
+
+                local data = ESPCache[plr]
+                if data then
+                    local char = plr.Character
+                    if char and char:FindFirstChild("HumanoidRootPart") then
+                        local hum = char:FindFirstChild("Humanoid")
+
+                        local txt = ""
+
+                        if ESP.Name then
+                            txt = txt .. plr.Name .. "\n"
+                        end
+
+                        if ESP.Health and hum then
+                            txt = txt .. "HP: "..math.floor(hum.Health).."\n"
+                        end
+
+                        if ESP.Distance then
+                            local dist = (player.Character.HumanoidRootPart.Position - char.HumanoidRootPart.Position).Magnitude
+                            txt = txt .. math.floor(dist).."m"
+                        end
+
+                        data.label.Text = txt
+                    end
+                end
+            else
+                removeESP(plr)
+            end
+        end
+    end
+end)
+
+
+
+
+
