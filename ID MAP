@@ -1,0 +1,11 @@
+local text = "PlaceId: "..game.PlaceId.." | GameId: "..game.GameId
+
+if setclipboard then
+    setclipboard(text)
+end
+
+game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "คัดลอกแล้ว",
+    Text = text,
+    Duration = 8
+})
