@@ -8,16 +8,16 @@ local Player = Players.LocalPlayer
 local UI_SCALE = 0.75
 
 pcall(function()
-	if Player.PlayerGui:FindFirstChild("HayateX_Executor") then
+	if Player.PlayerGui:FindFirstChild("FIATX2 HUB_Executor") then
 		Player.PlayerGui.HayateX_Executor:Destroy()
 	end
-	if Player.PlayerGui:FindFirstChild("HayateX_Toggle") then
+	if Player.PlayerGui:FindFirstChild("FIATX2 HUB_Toggle") then
 		Player.PlayerGui.HayateX_Toggle:Destroy()
 	end
 end)
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "HayateX_Executor"
+ScreenGui.Name = "FIATX2 HUB_Executor"
 ScreenGui.Parent = Player:WaitForChild("PlayerGui")
 ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -45,14 +45,14 @@ local Logo = Instance.new("ImageLabel", Top)
 Logo.Size = UDim2.new(0,30,0,30)
 Logo.Position = UDim2.new(0,10,0.5,-15)
 Logo.BackgroundTransparency = 1
-Logo.Image = "rbxassetid://134091073885645"
+Logo.Image = "rbxassetid://134810315636739"
 
 local Title = Instance.new("TextLabel", Top)
 Title.BackgroundTransparency = 1
 Title.Position = UDim2.new(0,48,0,0)
 Title.Size = UDim2.new(1,-100,1,0)
 Title.Font = Enum.Font.GothamBold
-Title.Text = "HayateX Hub Executor"
+Title.Text = "FIATX2 HUB Executor"
 Title.TextColor3 = Color3.fromRGB(230,230,230)
 Title.TextSize = 14
 Title.TextXAlignment = Enum.TextXAlignment.Left
