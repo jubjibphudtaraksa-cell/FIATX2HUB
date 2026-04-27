@@ -270,3 +270,70 @@ Stroke.Thickness = 1.4
 Toggle.MouseButton1Click:Connect(function()
 	Main.Visible = not Main.Visible
 end)
+
+
+
+
+-- ตั้งค่า (แก้ได้)
+local INDENT_SIZE = 4
+local GUIDE_COLOR = "#6b7280" -- สีเส้น (เทาแนว VSCode)
+
+-- ฟังก์ชันสร้างเลขบรรทัด
+local function generateLineNumbers(text)
+    local lines = 1
+    for _ in text:gmatch("\n") do
+        lines += 1
+    end
+    
+    local result = ""
+    for i = 1, lines do
+        result = result .. i .. "\n"
+    end
+    
+    return result
+end
+
+-- ฟังก์ชันใส่เส้นไกด์
+local function addIndentGuides(text)
+    local output = {}
+
+    for line in text:gmatch("[^\n]*") do
+        local indent = line:match("^(%s*)") or ""
+        local level = math.floor(#indent / INDENT_SIZE)
+
+        local guide = ""
+        for i = 1, level do
+            guide = guide .. '<font color="'..GUIDE_COLOR..'">│</font>   '
+        end
+
+        local content = line:sub(#indent + 1)
+        table.insert(output, guide .. content)
+    end
+
+    return table.concat(output, "\n")
+end
+
+-- ฟังก์ชันหลัก (เรียกใช้อันนี้)
+local function updateEditor(textBox, displayLabel, lineLabel)
+    local text = textBox.Text
+
+    -- เลขบรรทัด
+    if lineLabel then
+        lineLabel.Text = generateLineNumbers(text)
+    end
+
+    -- ใส่เส้นไกด์
+    local formatted = addIndentGuides(text)
+
+    -- ถ้ามี highlight function ให้ใช้
+    if highlight then
+        formatted = highlight(formatted)
+    end
+
+    displayLabel.Text = formatted
+end
+
+-- วิธีใช้งาน:
+-- textBox:GetPropertyChangedSignal("Text"):Connect(function()
+--     updateEditor(textBox, displayLabel, lineLabel)
+-- end)
