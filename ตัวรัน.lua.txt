@@ -1,0 +1,272 @@
+-- ตัวรันสุดโหด
+
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local Player = Players.LocalPlayer
+
+local UI_SCALE = 0.75
+
+pcall(function()
+	if Player.PlayerGui:FindFirstChild("HayateX_Executor") then
+		Player.PlayerGui.HayateX_Executor:Destroy()
+	end
+	if Player.PlayerGui:FindFirstChild("HayateX_Toggle") then
+		Player.PlayerGui.HayateX_Toggle:Destroy()
+	end
+end)
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "HayateX_Executor"
+ScreenGui.Parent = Player:WaitForChild("PlayerGui")
+ScreenGui.ResetOnSpawn = false
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+local Main = Instance.new("Frame", ScreenGui)
+Main.Size = UDim2.new(0,720*UI_SCALE,0,430*UI_SCALE)
+Main.Position = UDim2.new(0.5,-(720*UI_SCALE)/2,0.5,-(430*UI_SCALE)/2)
+Main.BackgroundColor3 = Color3.fromRGB(15,15,15)
+Main.Active = true
+Main.Draggable = true
+Main.ClipsDescendants = true
+Instance.new("UICorner", Main).CornerRadius = UDim.new(0,18)
+
+local MainStroke = Instance.new("UIStroke", Main)
+MainStroke.Color = Color3.fromRGB(0,255,140)
+MainStroke.Thickness = 1.2
+MainStroke.Transparency = 0.15
+
+local Top = Instance.new("Frame", Main)
+Top.Size = UDim2.new(1,0,0,45)
+Top.BackgroundColor3 = Color3.fromRGB(10,10,10)
+Instance.new("UICorner", Top).CornerRadius = UDim.new(0,18)
+
+local Logo = Instance.new("ImageLabel", Top)
+Logo.Size = UDim2.new(0,30,0,30)
+Logo.Position = UDim2.new(0,10,0.5,-15)
+Logo.BackgroundTransparency = 1
+Logo.Image = "rbxassetid://134091073885645"
+
+local Title = Instance.new("TextLabel", Top)
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0,48,0,0)
+Title.Size = UDim2.new(1,-100,1,0)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "HayateX Hub Executor"
+Title.TextColor3 = Color3.fromRGB(230,230,230)
+Title.TextSize = 14
+Title.TextXAlignment = Enum.TextXAlignment.Left
+
+local Minimize = Instance.new("TextButton", Top)
+Minimize.Size = UDim2.new(0,28,0,28)
+Minimize.Position = UDim2.new(1,-70,0.5,-14)
+Minimize.Text = "-"
+Minimize.Font = Enum.Font.GothamBold
+Minimize.TextSize = 18
+Minimize.TextColor3 = Color3.fromRGB(255,255,255)
+Minimize.BackgroundColor3 = Color3.fromRGB(30,30,30)
+Instance.new("UICorner", Minimize).CornerRadius = UDim.new(0,8)
+
+local Close = Instance.new("TextButton", Top)
+Close.Size = UDim2.new(0,28,0,28)
+Close.Position = UDim2.new(1,-36,0.5,-14)
+Close.Text = "X"
+Close.Font = Enum.Font.GothamBold
+Close.TextSize = 14
+Close.TextColor3 = Color3.fromRGB(255,80,80)
+Close.BackgroundColor3 = Color3.fromRGB(30,30,30)
+Instance.new("UICorner", Close).CornerRadius = UDim.new(0,8)
+
+local TabBar = Instance.new("Frame", Main)
+TabBar.Position = UDim2.new(0,0,0,50)
+TabBar.Size = UDim2.new(1,0,0,35)
+TabBar.BackgroundColor3 = Color3.fromRGB(18,18,18)
+
+local AddTab = Instance.new("TextButton", TabBar)
+AddTab.Size = UDim2.new(0,35,1,0)
+AddTab.Position = UDim2.new(1,-40,0,0)
+AddTab.Text = "+"
+AddTab.Font = Enum.Font.GothamBold
+AddTab.TextSize = 20
+AddTab.TextColor3 = Color3.fromRGB(0,255,140)
+AddTab.BackgroundTransparency = 1
+
+local Content = Instance.new("Frame", Main)
+Content.Position = UDim2.new(0,10,0,95)
+Content.Size = UDim2.new(1,-20,1,-150)
+Content.BackgroundColor3 = Color3.fromRGB(8,8,8)
+Content.ClipsDescendants = true
+Instance.new("UICorner", Content).CornerRadius = UDim.new(0,14)
+
+local Run = Instance.new("TextButton", Main)
+Run.Size = UDim2.new(0,110,0,35)
+Run.Position = UDim2.new(1,-120,1,-45)
+Run.Text = "▶ RUN"
+Run.Font = Enum.Font.GothamBold
+Run.TextSize = 14
+Run.TextColor3 = Color3.fromRGB(0,255,140)
+Run.BackgroundColor3 = Color3.fromRGB(22,22,22)
+Instance.new("UICorner", Run).CornerRadius = UDim.new(0,12)
+
+local Clear = Instance.new("TextButton", Main)
+Clear.Size = UDim2.new(0,110,0,35)
+Clear.Position = UDim2.new(1,-240,1,-45)
+Clear.Text = "✖ CLEAR"
+Clear.Font = Enum.Font.GothamBold
+Clear.TextSize = 14
+Clear.TextColor3 = Color3.fromRGB(255,90,90)
+Clear.BackgroundColor3 = Color3.fromRGB(22,22,22)
+Instance.new("UICorner", Clear).CornerRadius = UDim.new(0,12)
+
+local Save = Instance.new("TextButton", Main)
+Save.Size = UDim2.new(0,110,0,35)
+Save.Position = UDim2.new(1,-360,1,-45)
+Save.Text = "💾 SAVE"
+Save.Font = Enum.Font.GothamBold
+Save.TextSize = 14
+Save.TextColor3 = Color3.fromRGB(90,170,255)
+Save.BackgroundColor3 = Color3.fromRGB(22,22,22)
+Instance.new("UICorner", Save).CornerRadius = UDim.new(0,12)
+
+local Tabs = {}
+local CurrentTab
+local Minimized = false
+
+local function Highlight(text)
+	text = text:gsub("&","&amp;")
+	text = text:gsub("<","&lt;")
+	text = text:gsub(">","&gt;")
+	text = text:gsub("(%-%-.-)\n","<font color='#5c6370'>%1</font>\n")
+	text = text:gsub("(%f[%a])(local|function|end|if|then|else|for|while|do|return|repeat|until|in)(%f[%A])","<font color='#c678dd'>%2</font>")
+	text = text:gsub('(".-")',"<font color='#98c379'>%1</font>")
+	text = text:gsub("(%d+)","<font color='#e5c07b'>%1</font>")
+	return text
+end
+
+local function SelectTab(tab)
+	for _,v in pairs(Tabs) do
+		v.Box.Visible = false
+		v.Button.TextColor3 = Color3.fromRGB(180,180,180)
+	end
+	CurrentTab = tab
+	tab.Box.Visible = true
+	tab.Button.TextColor3 = Color3.fromRGB(0,255,140)
+end
+
+local function CreateTab()
+	local index = #Tabs + 1
+
+	local Btn = Instance.new("TextButton", TabBar)
+	Btn.Size = UDim2.new(0,80,1,0)
+	Btn.Position = UDim2.new(0,(index-1)*85+10,0,0)
+	Btn.Text = "Tab "..index
+	Btn.Font = Enum.Font.Gotham
+	Btn.TextSize = 12
+	Btn.TextColor3 = Color3.fromRGB(180,180,180)
+	Btn.BackgroundTransparency = 1
+
+	local Box = Instance.new("TextBox", Content)
+	Box.Size = UDim2.new(1,-10,1,-10)
+	Box.Position = UDim2.new(0,5,0,5)
+	Box.BackgroundTransparency = 1
+	Box.MultiLine = true
+	Box.ClearTextOnFocus = false
+	Box.RichText = true
+	Box.TextWrapped = false
+	Box.TextXAlignment = Enum.TextXAlignment.Left
+	Box.TextYAlignment = Enum.TextYAlignment.Top
+	Box.Font = Enum.Font.Code
+	Box.TextSize = 15
+	Box.TextColor3 = Color3.fromRGB(230,230,230)
+	Box.Text = "-- Tab "..index
+	Box.Visible = false
+
+	local lock = false
+	Box:GetPropertyChangedSignal("Text"):Connect(function()
+		if lock then return end
+		lock = true
+		local raw = Box.Text:gsub("<.->","")
+		local pos = Box.CursorPosition
+		Box.Text = Highlight(raw)
+		Box.CursorPosition = pos
+		lock = false
+	end)
+
+	local Data = {Button=Btn,Box=Box}
+	table.insert(Tabs,Data)
+
+	Btn.MouseButton1Click:Connect(function()
+		SelectTab(Data)
+	end)
+
+	if #Tabs == 1 then
+		SelectTab(Data)
+	end
+end
+
+CreateTab()
+
+AddTab.MouseButton1Click:Connect(CreateTab)
+
+Run.MouseButton1Click:Connect(function()
+	if not CurrentTab then return end
+	local code = CurrentTab.Box.Text:gsub("<.->","")
+	pcall(function()
+		loadstring(code)()
+	end)
+end)
+
+Clear.MouseButton1Click:Connect(function()
+	if CurrentTab then
+		CurrentTab.Box.Text = ""
+	end
+end)
+
+Save.MouseButton1Click:Connect(function()
+	if CurrentTab then
+		setclipboard(CurrentTab.Box.Text:gsub("<.->",""))
+	end
+end)
+
+Minimize.MouseButton1Click:Connect(function()
+	Minimized = not Minimized
+	Content.Visible = not Minimized
+	Run.Visible = not Minimized
+	Clear.Visible = not Minimized
+	Save.Visible = not Minimized
+	TabBar.Visible = not Minimized
+	Main.Size = Minimized and UDim2.new(0,720*UI_SCALE,0,45) or UDim2.new(0,720*UI_SCALE,0,430*UI_SCALE)
+end)
+
+Close.MouseButton1Click:Connect(function()
+	ScreenGui:Destroy()
+end)
+
+UIS.InputBegan:Connect(function(i,g)
+	if g then return end
+	if i.KeyCode == Enum.KeyCode.RightShift then
+		Main.Visible = not Main.Visible
+	end
+end)
+
+local ToggleGui = Instance.new("ScreenGui")
+ToggleGui.Name = "HayateX_Toggle"
+ToggleGui.Parent = Player.PlayerGui
+ToggleGui.ResetOnSpawn = false
+
+local Toggle = Instance.new("ImageButton", ToggleGui)
+Toggle.Size = UDim2.new(0,55*UI_SCALE,0,55*UI_SCALE)
+Toggle.Position = UDim2.new(0,20,0.5,-25)
+Toggle.Image = "rbxassetid://135647356138386"
+Toggle.BackgroundColor3 = Color3.fromRGB(18,18,18)
+Toggle.Active = true
+Toggle.Draggable = true
+Instance.new("UICorner", Toggle).CornerRadius = UDim.new(0,14)
+
+local Stroke = Instance.new("UIStroke", Toggle)
+Stroke.Color = Color3.fromRGB(0,255,140)
+Stroke.Thickness = 1.4
+
+Toggle.MouseButton1Click:Connect(function()
+	Main.Visible = not Main.Visible
+end)
