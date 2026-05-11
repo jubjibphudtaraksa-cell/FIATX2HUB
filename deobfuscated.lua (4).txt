@@ -1,0 +1,2709 @@
+-- ts file was generated at discord.gg/25ms
+
+local v0 = string.char
+local v1 = string.byte
+local v2 = string.sub
+local v4 = (bit32 or bit).bxor
+local v5 = table.concat
+local v6 = table.insert
+
+local function v7(v113, v114)
+    local v115 = {}
+
+    for v501 = 1, #v113, 1 do
+        v6(v115, v0(v4(v1(v2(v113, v501, v501 + 1)), v1(v2(v114, 1 + v501 % #v114, (1 + v501 % #v114) + 1))) % 256))
+    end
+
+    return v5(v115)
+end
+
+local v8 = Instance.new('ScreenGui')
+
+v8.Name = 'KrizHub_Final_Standard'
+v8.Parent = game:GetService('CoreGui')
+v8.ResetOnSpawn = false
+
+local v12 = Instance.new('Frame')
+
+v12.Size = UDim2.new(0, 140, 0, 45)
+v12.Position = UDim2.new(0.5, -70, 0.5, -95)
+v12.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+v12.BackgroundTransparency = 0.5
+v12.BorderSizePixel = 0
+v12.ClipsDescendants = true
+v12.Parent = v8
+
+local v20 = Instance.new('UIStroke')
+
+v20.Color = Color3.fromRGB(0, 170, 255)
+v20.Thickness = 1.5
+v20.Parent = v12
+Instance.new('UICorner', v12).CornerRadius = UDim.new(0, 2)
+
+local v25 = Instance.new('TextButton')
+
+v25.Size = UDim2.new(1, 0, 0, 45)
+v25.BackgroundTransparency = 1
+v25.Text = 'KRIZ HUB'
+v25.TextColor3 = Color3.fromRGB(255, 255, 255)
+v25.TextSize = 18
+v25.Font = Enum.Font.Michroma
+v25.Parent = v12
+
+local v34 = Instance.new('ScrollingFrame')
+
+v34.Size = UDim2.new(1, 0, 1, -50)
+v34.Position = UDim2.new(0, 0, 0, 45)
+v34.BackgroundTransparency = 1
+v34.BorderSizePixel = 0
+v34.ScrollBarThickness = 0
+v34.ScrollBarImageTransparency = 1
+v34.Visible = false
+v34.AutomaticCanvasSize = Enum.AutomaticSize.Y
+v34.CanvasSize = UDim2.new(0, 0, 0, 0)
+v34.Parent = v12
+
+local v46 = Instance.new('UIListLayout', v34)
+
+v46.Padding = UDim.new(0, 5)
+v46.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+local function v50(v116, v117)
+    local v118 = Instance.new('TextButton')
+
+    v118.Size = UDim2.new(0.9, 0, 0, 30)
+    v118.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    v118.BackgroundTransparency = 0.8
+    v118.Text = v116
+    v118.TextColor3 = Color3.fromRGB(255, 255, 255)
+    v118.TextSize = 15
+    v118.Font = Enum.Font.SourceSans
+    v118.Parent = v117
+    Instance.new('UICorner', v118).CornerRadius = UDim.new(0, 2)
+
+    return v118
+end
+local function v51(v129, v130, v131)
+    local v132 = Instance.new('Frame')
+
+    v132.Size = UDim2.new(0.9, 0, 0, 30)
+    v132.BackgroundTransparency = 1
+    v132.Visible = false
+    v132.Parent = v131
+
+    local function v137(v502, v503)
+        local v504 = 0
+        local v505
+
+        while true do
+            if v504 == 3 then
+                v505.Parent = v132
+                Instance.new('UICorner', v505).CornerRadius = UDim.new(0, 2)
+
+                return v505
+            end
+            if v504 == 2 then
+                v505.TextColor3 = Color3.fromRGB(255, 255, 255)
+                v505.TextSize = 15
+                v505.Font = Enum.Font.SourceSans
+            end
+            if v504 == 0 then
+                v505 = Instance.new('TextButton')
+                v505.Size = UDim2.new(0.4800000000000182, 0, 1, 0)
+                v505.Position = v503
+            end
+            if v504 == 1 then
+                v505.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+                v505.BackgroundTransparency = 0.8
+                v505.Text = v502
+            end
+        end
+    end
+
+    local v138 = v137(v129, UDim2.new(0, 0, 0, 0))
+    local v139 = v137(v130, UDim2.new(0.52, 0, 0, 0))
+
+    return v132, v138, v139
+end
+
+local v52 = Instance.new('Frame')
+
+v52.Size = UDim2.new(1, 0, 0, 30)
+v52.BackgroundTransparency = 1
+v52.AutomaticSize = Enum.AutomaticSize.Y
+v52.Parent = v34
+
+local v57 = Instance.new('UIListLayout', v52)
+
+v57.Padding = UDim.new(0, 4)
+v57.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+local v60 = v50('\u{e2b}\u{e19}\u{e49}\u{e32}\u{e2b}\u{e25}\u{e31}\u{e01}', v52)
+local v61, v62, v63 = v51('\u{e1a}\u{e34}\u{e19}', '\u{e23}\u{e16}\u{e1a}\u{e34}\u{e19}', v52)
+local v64, v65, v66 = v51('\u{e27}\u{e34}\u{e48}\u{e07}\u{e40}\u{e23}\u{e47}\u{e27}', '\u{e2b}\u{e31}\u{e19}\u{e2d}\u{e34}\u{e2a}\u{e23}\u{e30}', v52)
+
+v60.MouseButton1Click:Connect(function()
+    local v140 = 0
+    local v141
+
+    while true do
+        if v140 == 0 then
+            v61.Visible = not v61.Visible
+        end
+        if v140 == 1 then
+            v64.Visible = v141
+
+            break
+        end
+    end
+end)
+
+local v67 = Instance.new('Frame')
+
+v67.Size = UDim2.new(1, 0, 0, 30)
+v67.BackgroundTransparency = 1
+v67.AutomaticSize = Enum.AutomaticSize.Y
+v67.Parent = v34
+
+local v72 = Instance.new('UIListLayout', v67)
+
+v72.Padding = UDim.new(0, 4)
+v72.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+local v75 = v50('\u{e15}\u{e48}\u{e2d}\u{e2a}\u{e39}\u{e49}', v67)
+local v76, v77, v78 = v51('\u{e27}\u{e32}\u{e23}\u{e4c}\u{e1b}\u{e22}\u{e34}\u{e07}', '\u{e2a}\u{e34}\u{e07}\u{e40}\u{e17}\u{e49}\u{e32}', v67)
+local v79, v80, v81 = v51('\u{e2d}\u{e2d}\u{e42}\u{e15}\u{e49}\u{e22}\u{e34}\u{e07}', '\u{e25}\u{e47}\u{e2d}\u{e04}\u{e40}\u{e1b}\u{e49}\u{e32}', v67)
+
+v75.MouseButton1Click:Connect(function()
+    local v142 = 0
+    local v143
+
+    while true do
+        if v142 == 1 then
+            v79.Visible = v143
+
+            break
+        end
+        if v142 == 0 then
+            v76.Visible = not v76.Visible
+        end
+    end
+end)
+
+local v82 = Instance.new('Frame', v34)
+
+v82.Size = UDim2.new(1, 0, 0, 30)
+v82.BackgroundTransparency = 1
+v82.AutomaticSize = Enum.AutomaticSize.Y
+
+local v86 = Instance.new('UIListLayout', v82)
+
+v86.Padding = UDim.new(0, 4)
+v86.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+local v89 = v50('\u{e1b}\u{e49}\u{e2d}\u{e07}\u{e01}\u{e31}\u{e19}', v82)
+local v90, v91 = v51('\u{e01}\u{e31}\u{e19}\u{e15}\u{e32}\u{e22}', '-', v82)
+
+v89.MouseButton1Click:Connect(function()
+    v90.Visible = not v90.Visible
+end)
+
+local v93 = Instance.new('Frame', v34)
+
+v93.Size = UDim2.new(1, 0, 0, 30)
+v93.BackgroundTransparency = 1
+v93.AutomaticSize = Enum.AutomaticSize.Y
+
+local v97 = Instance.new('UIListLayout', v93)
+
+v97.Padding = UDim.new(0, 4)
+v97.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+local v100 = v50('\u{e21}\u{e2d}\u{e07}', v93)
+local v101, v102, v103 = v51('\u{e44}\u{e2e}\u{e44}\u{e25}\u{e17}\u{e4c}', '\u{e40}\u{e2a}\u{e49}\u{e19}\u{e1a}\u{e19}\u{e2b}\u{e31}\u{e27}', v93)
+local v104, v105, v106 = v51('\u{e02}\u{e2d}\u{e07}\u{e43}\u{e19}\u{e15}\u{e31}\u{e27}', '\u{e23}\u{e30}\u{e22}\u{e30}', v93)
+
+v100.MouseButton1Click:Connect(function()
+    v101.Visible = not v101.Visible
+    v104.Visible = v101.Visible
+end)
+
+local v107 = 0
+local v108 = false
+
+v25.MouseButton1Click:Connect(function()
+    local v147 = 0
+    local v148
+
+    while true do
+        if v147 == 0 then
+            v148 = tick()
+
+            if v148 - v107 < 0.3 then
+                v108 = not v108
+                v12.Size = not (not (not (not (not (not (not (not v108))))))) and UDim2.new(0, 140, 0, 190) or UDim2.new(0, 140, 0, 45)
+                v34.Visible = not (not (not (not (not (not (not (not v108)))))))
+            else
+            end
+
+            break
+        end
+    end
+end)
+
+local v109, v111, v112
+
+v25.InputBegan:Connect(function(v149)
+    if v149.UserInputType == Enum.UserInputType.MouseButton1 or v149.UserInputType == Enum.UserInputType.Touch then
+        v109, v111, v112 = true, v149.Position, v12.Position
+
+        v149.Changed:Connect(function() end)
+    end
+end)
+game:GetService('UserInputService').InputChanged:Connect(function(v150)
+    if v109 and (v150.UserInputType == Enum.UserInputType.MouseMovement or v150.UserInputType == Enum.UserInputType.Touch) then
+        local v625 = 0
+
+        while true do
+            if v625 == 0 then
+                v12.Position = UDim2.new(v112.X.Scale, v112.X.Offset + (v150.Position - v111).X, v112.Y.Scale, v112.Y.Offset + (v150.Position - v111).Y)
+
+                break
+            end
+        end
+    end
+end)
+task.spawn(function()
+    local v151, v152, v153, v154 = game:GetService('Players'), game:GetService('RunService'), game:GetService('UserInputService'), game:GetService('Players').LocalPlayer
+    local v155 = workspace.CurrentCamera
+    local v156, v157, v158, v159, v160 = false, 100, nil, nil, nil
+    local v161 = Instance.new('ScreenGui', v154.PlayerGui)
+
+    v161.Name = 'KrizFly'
+    v161.ResetOnSpawn = false
+
+    local v164 = Instance.new('Frame', v161)
+
+    v164.Size = UDim2.new(0, 140, 0, 65)
+    v164.Position = UDim2.new(0.5, 80, 0.4, 0)
+    v164.BackgroundColor3 = Color3.new(0, 0, 0)
+    v164.BackgroundTransparency = 0.8000000000000114
+    v164.Visible = false
+    Instance.new('UIStroke', v164).Color = Color3.fromRGB(0, 180, 255)
+
+    Instance.new('UICorner', v164)
+
+    local v171 = Instance.new('TextBox', v164)
+
+    v171.Size = UDim2.new(1, -20, 0, 22)
+    v171.Position = UDim2.new(0, 10, 0, 8)
+    v171.Text = '100'
+    v171.BackgroundColor3 = Color3.new(0, 0, 0)
+    v171.BackgroundTransparency = 0.8
+    v171.TextColor3 = Color3.new(1, 1, 1)
+    v171.Font = Enum.Font.GothamBold
+    v171.TextSize = 14
+
+    Instance.new('UICorner', v171)
+
+    local v181 = Instance.new('TextButton', v164)
+
+    v181.Size = UDim2.new(1, -20, 0, 22)
+    v181.Position = UDim2.new(0, 10, 0, 35)
+    v181.Text = 'FLY: OFF'
+    v181.BackgroundColor3 = Color3.new(0, 0, 0)
+    v181.BackgroundTransparency = 0.8
+    v181.TextColor3 = Color3.new(1, 1, 1)
+    v181.Font = Enum.Font.GothamBold
+
+    Instance.new('UICorner', v181)
+
+    local function v189()
+        local v506 = 0
+        local v507
+
+        while true do
+            if v506 == 0 then
+                v507 = 0
+
+                while true do
+                    if v507 == 0 then
+                        if v158 then
+                            v158:Disconnect()
+                        end
+                        if v159 then
+                            local v880 = 0
+                            local v881
+
+                            while true do
+                                if v880 == 0 then
+                                    v881 = 0
+
+                                    while true do
+                                        if v881 == 0 then
+                                            v159:Destroy()
+
+                                            break
+                                        end
+                                    end
+
+                                    break
+                                end
+                            end
+                        end
+                    end
+                    if v507 == 1 then
+                        if v160 then
+                            local v882 = 0
+
+                            while true do
+                                if v882 == 0 then
+                                    v160:Destroy()
+
+                                    break
+                                end
+                            end
+                        end
+
+                        pcall(function()
+                            if v154.Character then
+                                v154.Character.Humanoid.PlatformStand = false
+                            end
+                        end)
+
+                        break
+                    end
+                end
+
+                break
+            end
+        end
+    end
+    local function v190()
+        local v508 = 0
+        local v509
+        local v510
+        local v511
+
+        while true do
+            if v508 == 1 then
+                local v701 = 0
+
+                while true do
+                    if v701 == 0 then
+                        v509 = v154.Character or v154.CharacterAdded:Wait()
+
+                        v509:WaitForChild('HumanoidRootPart', 5)
+                    end
+                end
+            end
+            if v508 == 2 then
+                v511 = v509:WaitForChild('Humanoid', 5)
+
+                if v510 and v511 then
+                    local v798 = 0
+
+                    while true do
+                        if v798 == 2 then
+                            v160.MaxTorque = Vector3.new(1, 1, 1) * math.huge
+                            v160.P = 20000
+                        end
+                        if v798 == 1 then
+                            v159.Velocity = Vector3.zero
+
+                            Instance.new('BodyGyro', v510)
+                        end
+                        if v798 == 3 then
+                            v152.Heartbeat:Connect(function()
+                                if not v156 or not v510 or not v510.Parent then
+                                    local v954 = 0
+
+                                    while true do
+                                        if v954 == 0 then
+                                            v189()
+
+                                            return
+                                        end
+                                    end
+                                end
+
+                                v511.PlatformStand = true
+
+                                local v904 = v511.MoveDirection
+
+                                if v511.MoveDirection.Magnitude > 0 then
+                                    v159.Velocity = ((v155.CFrame.LookVector * v157) * v904:Dot(v155.CFrame.LookVector)) * 2 + ((v155.CFrame.RightVector * v157) * v904:Dot(v155.CFrame.RightVector)) * 2
+                                else
+                                    v159.Velocity = Vector3.zero
+                                end
+
+                                v160.CFrame = v155.CFrame
+                            end)
+
+                            break
+                        end
+                        if v798 == 0 then
+                            v159 = Instance.new('BodyVelocity', v510)
+                            v159.MaxForce = Vector3.new(1, 1, 1) * math.huge
+                        end
+                    end
+                end
+
+                break
+            end
+            if v508 == 0 then
+                v189()
+
+                if not v156 then
+                    return
+                end
+            end
+        end
+    end
+
+    v181.MouseButton1Click:Connect(function()
+        v156 = not v156
+        v181.Text, v181.TextColor3 = not (not (not (not (not (not (not (not v156))))))) and 'FLY: ON' or 'FLY: OFF', not (not (not (not (not (not (not (not v156))))))) and Color3.fromRGB(0, 180, 255) or Color3.new(1, 1, 1)
+
+        if not (not (not (not (not (not (not (not v156))))))) then
+            v190()
+        else
+            v189()
+        end
+    end)
+    v154.CharacterAdded:Connect(function()
+        local v514 = 0
+
+        while true do
+            if v514 == 0 then
+                v189()
+
+                if v156 then
+                    local v799 = 0
+
+                    while true do
+                        if v799 == 0 then
+                            task.wait(1)
+                            v190()
+
+                            break
+                        end
+                    end
+                end
+
+                break
+            end
+        end
+    end)
+    v171.FocusLost:Connect(function()
+        v157 = tonumber(v171.Text) or 100
+        v171.Text = tostring(v157)
+    end)
+
+    local v191, v192, v193
+
+    v164.InputBegan:Connect(function(v516)
+        if v516.UserInputType == Enum.UserInputType.MouseButton1 or v516.UserInputType == Enum.UserInputType.Touch then
+            while true do end
+        end
+    end)
+    v153.InputChanged:Connect(function(v517)
+        if v191 and (v517.UserInputType == Enum.UserInputType.MouseMovement or v517.UserInputType == Enum.UserInputType.Touch) then
+            local v642 = 0
+
+            while true do
+                if v642 == 0 then
+                    v164.Position = UDim2.new(v192.X.Scale, v192.X.Offset + (v517.Position - v193).X, v192.Y.Scale, v192.Y.Offset + (v517.Position - v193).Y)
+
+                    break
+                end
+            end
+        end
+    end)
+    v153.InputEnded:Connect(function(v518) end)
+    v62.MouseButton1Click:Connect(function()
+        local v519 = 0
+        local v520
+
+        while true do
+            if v519 == 0 then
+                v520 = 0
+
+                while true do
+                    if v520 == 0 then
+                        v164.Visible = not v164.Visible
+                        v62.TextColor3 = v164.Visible and Color3.fromRGB(0, 170, 255) or Color3.new(1, 1, 1)
+
+                        break
+                    end
+                end
+
+                break
+            end
+        end
+    end)
+end)
+task.spawn(function()
+    local v194, v195, v196 = game:GetService('Players'), game:GetService('RunService'), game:GetService('Players').LocalPlayer
+    local v197, v198, v199, v200, v201 = false, nil, nil, 0, Vector3.new()
+    local v202 = {
+        th = 0,
+        st = 0,
+        y = 0,
+    }
+    local v203 = Instance.new('ScreenGui', game:GetService('CoreGui'))
+
+    v203.Name = 'KRIZ_UFO_SYSTEM'
+    v203.ResetOnSpawn = false
+
+    local v206 = Instance.new('Frame', v203)
+
+    v206.Size, v206.Visible, v206.BackgroundTransparency = UDim2.fromScale(1, 1), false, 1
+
+    local function v210(v521, v522, v523, v524, v525)
+        local v526 = Instance.new('TextButton', v525)
+
+        v526.Name, v526.Position, v526.Size, v526.Text, v526.BackgroundColor3, v526.BackgroundTransparency, v526.TextColor3, v526.BorderSizePixel, v526.BorderColor3, v526.TextSize, v526.Font = v521, v522, v523, v524, Color3.new(0, 0, 0), 0.5, Color3.new(1, 1, 1), 2, Color3.new(0, 1, 1), 22, 3
+
+        return v526
+    end
+
+    local v211, v212 = Instance.new('Frame', v206), Instance.new('Frame', v206)
+
+    v211.BackgroundTransparency, v211.Position, v211.Size = 1, UDim2.fromScale(0.05, 0.65), UDim2.fromScale(0.25, 0.25)
+    v212.BackgroundTransparency, v212.Position, v212.Size = 1, UDim2.fromScale(0.6499999999999773, 0.65), UDim2.fromScale(0.3, 0.25)
+
+    local v219, v220 = v210('L', UDim2.fromScale(0, 0.2999999999999545), UDim2.fromScale(0.48, 0.5), '<', v211), v210('R', UDim2.fromScale(0.52, 0.3), UDim2.fromScale(0.48, 0.5), '>', v211)
+    local v221, v222 = v210('F', UDim2.fromScale(0.35000000000002274, 0), UDim2.fromScale(0.3, 0.45), 'FWD', v212), v210('B', UDim2.fromScale(0.35, 0.5), UDim2.fromScale(0.3, 0.44999999999998863), 'BWD', v212)
+    local v223, v224 = v210('U', UDim2.fromScale(0.7, 0), UDim2.fromScale(0.25, 0.45), '+', v212), v210('D', UDim2.fromScale(0.7, 0.5), UDim2.fromScale(0.25, 0.45), '-', v212)
+    local v225 = Instance.new('TextBox', v206)
+
+    v225.Size, v225.Position, v225.Text, v225.BackgroundColor3, v225.BackgroundTransparency, v225.TextColor3, v225.BorderColor3, v225.BorderSizePixel, v225.TextSize = UDim2.fromScale(0.18, 0.06), UDim2.fromScale(0.4099999999999966, 0.88), '100', Color3.new(0, 0, 0), 0.5, Color3.new(1, 1, 1), Color3.new(0, 1, 1), 2, 20
+
+    local function v235(v538, v539, v540)
+        local v541 = 0
+        local v542
+
+        while true do
+            if v541 == 0 then
+                v542 = 0
+
+                while true do
+                    if 0 == v542 then
+                        v538.MouseButton1Down:Connect(function()
+                            v202[v540] = v539
+                        end)
+                        v538.MouseButton1Up:Connect(function()
+                            v202[v540] = 0
+                        end)
+
+                        break
+                    end
+                end
+
+                break
+            end
+        end
+    end
+
+    v235(v219, -1, 'st')
+    v235(v220, 1, 'st')
+    v235(v221, 1, 'th')
+    v235(v222, -1, 'th')
+    v235(v223, 1, 'y')
+    v235(v224, -1, 'y')
+
+    local function v236(v543)
+        local v544 = v543:WaitForChild('Humanoid')
+
+        v544.Seated:Connect(function(v627, v628)
+            if v627 and v628:IsA('BasePart') then
+                v199 = v628:FindFirstAncestorOfClass('Model') or v628
+            else
+                local v704 = 0
+
+                while true do
+                    if 0 == v704 then
+                        if v198 then
+                            v198.Anchored = false
+                        end
+
+                        v198, v199 = nil, nil
+
+                        break
+                    end
+                end
+            end
+        end)
+    end
+
+    if v196.Character then
+        v236(v196.Character)
+    end
+
+    v196.CharacterAdded:Connect(v236)
+    v63.MouseButton1Click:Connect(function()
+        local v545 = 0
+
+        while true do
+            if v545 == 1 then
+                v206.Visible = v197
+
+                if not v197 and v198 then
+                    v198.Anchored = false
+                end
+
+                break
+            end
+            if 0 == v545 then
+                v197 = not v197
+                v63.TextColor3 = not (not (not (not (not (not (not (not v197))))))) and Color3.fromRGB(0, 170, 255) or Color3.new(1, 1, 1)
+            end
+        end
+    end)
+    v195.Heartbeat:Connect(function(v546)
+        if v197 and (v198 and v199) then
+            local v644 = 0
+            local v645
+
+            while true do
+                if v644 == 0 then
+                    v645 = tonumber(v225.Text) or 0
+
+                    if v202.th ~= 0 or v202.st ~= 0 or v202.y ~= 0 then
+                        v198.Anchored = false
+                        v200 = v200 + math.rad((-v202.st * 8) * (v202.th == -1 and -1 or 1))
+                        v201 = v201 + Vector3.new(((math.sin(v200 + math.pi) * v202.th) * v645) * v546, (v202.y * 50) * v546, ((math.cos(v200 + math.pi) * v202.th) * v645) * v546)
+
+                        local v844 = CFrame.new(v201) * CFrame.Angles(0, v200, 0)
+
+                        if v199:IsA('Model') then
+                            v199:PivotTo(v844)
+                        else
+                            v199.CFrame = v844
+                        end
+
+                        for v889, v890 in pairs(v199:GetDescendants())do
+                            if v890:IsA('BasePart') then
+                                v890.AssemblyLinearVelocity, v890.AssemblyAngularVelocity = Vector3.zero, Vector3.zero
+                            end
+                        end
+                    else
+                        v198.Anchored, v201 = true, v198.Position
+                    end
+
+                    break
+                end
+            end
+        end
+    end)
+end)
+task.spawn(function()
+    local v237, v238, v239 = game:GetService('RunService'), game:GetService('UserInputService'), game:GetService('Players').LocalPlayer
+    local v240, v241 = 0, false
+    local v242 = Instance.new('ScreenGui', game:GetService('CoreGui'))
+
+    v242.Name = 'KrizSpd'
+    v242.ResetOnSpawn = false
+
+    local v245 = Instance.new('Frame', v242)
+
+    v245.Size, v245.Position, v245.Visible, v245.BackgroundColor3, v245.BackgroundTransparency = UDim2.new(0, 120, 0, 40), UDim2.new(1, -130, 0, 50), false, Color3.new(0, 0, 0), 0.5
+    Instance.new('UIStroke', v245).Color = Color3.fromRGB(0, 180, 255)
+
+    Instance.new('UICorner', v245)
+
+    local v252 = Instance.new('TextBox', v245)
+
+    v252.Size, v252.Position, v252.Text, v252.PlaceholderText, v252.BackgroundTransparency, v252.TextColor3, v252.TextSize, v252.Font = UDim2.fromScale(0.8, 0.7), UDim2.fromScale(0.09999999999990905, 0.15), '', 'SPEED', 1, Color3.new(1, 1, 1), 16, Enum.Font.GothamMedium
+
+    v237.RenderStepped:Connect(function()
+        if v240 > 0 then
+            local v646 = 0
+            local v647
+            local v648
+            local v649
+
+            while true do
+                if v646 == 0 then
+                    local v804 = 0
+
+                    while true do
+                        if 0 == v804 then
+                            v648 = v239.Character and v239.Character:FindFirstChild('HumanoidRootPart')
+                        end
+                        if 1 == v804 then
+                            break
+                        end
+                    end
+                end
+                if 1 == v646 then
+                    v649 = v647 and v647:FindFirstChild('Humanoid')
+
+                    if v648 and (v649 and v649.MoveDirection.Magnitude > 0) then
+                        v648.CFrame = v648.CFrame + v649.MoveDirection * (v240 / 50)
+                    end
+
+                    break
+                end
+            end
+        end
+    end);
+    (v252:GetPropertyChangedSignal('Text')):Connect(function()
+        local v547 = 0
+
+        while true do
+            if 1 == v547 then
+                if v65 then
+                    v65.TextColor3 = v240 > 0 and Color3.fromRGB(0, 180, 255) or Color3.new(1, 1, 1)
+                end
+
+                break
+            end
+            if v547 == 0 then
+                v240 = tonumber(v252.Text) or 0
+                v252.TextColor3 = v240 > 0 and Color3.fromRGB(0, 180, 255) or Color3.new(1, 1, 1)
+            end
+        end
+    end)
+
+    local v262, v263, v264
+
+    v245.InputBegan:Connect(function(v548)
+        if v548.UserInputType == Enum.UserInputType.MouseButton1 or v548.UserInputType == Enum.UserInputType.Touch then
+            v262, v264, v263 = true, v548.Position, v245.Position
+        end
+    end)
+    v238.InputChanged:Connect(function(v549)
+        if v262 and (v549.UserInputType == Enum.UserInputType.MouseMovement or v549.UserInputType == Enum.UserInputType.Touch) then
+            v245.Position = UDim2.new(v263.X.Scale, v263.X.Offset + (v549.Position - v264).X, v263.Y.Scale, v263.Y.Offset + (v549.Position - v264).Y)
+        end
+    end)
+    v238.InputEnded:Connect(function(v550) end)
+    v65.MouseButton1Click:Connect(function()
+        local v551 = 0
+
+        while true do
+            if 0 == v551 then
+                v241 = not v241
+                v245.Visible = not (not (not (not (not (not (not (not v241)))))))
+
+                break
+            end
+        end
+    end)
+end)
+task.spawn(function()
+    local v265 = 0
+    local v266
+    local v267
+    local v268
+    local v269
+
+    while true do
+        if v265 == 3 then
+            v267.CharacterAdded:Connect(v269)
+
+            break
+        end
+        if v265 == 1 then
+            function v269(v709)
+                local v710 = v709:WaitForChild('Humanoid')
+                local v711 = v709:WaitForChild('HumanoidRootPart')
+
+                v266.RenderStepped:Connect(function()
+                    if v268 and (v710 and (v711 and v710.MoveDirection.Magnitude > 0)) then
+                        local v818 = 0
+                        local v819
+
+                        while true do
+                            if v818 == 1 then
+                                v711.CFrame = v711.CFrame:Lerp(v819, 0.2)
+
+                                break
+                            end
+                            if v818 == 0 then
+                                v710.AutoRotate = false
+
+                                CFrame.lookAt(v711.Position, v711.Position + v710.MoveDirection)
+                            end
+                        end
+                    elseif not v268 and v710 then
+                        v710.AutoRotate = true
+                    end
+                end)
+            end
+        end
+        if v265 == 2 then
+            v66.MouseButton1Click:Connect(function()
+                local v712 = 0
+
+                while true do
+                    if v712 == 0 then
+                        v268 = not v268
+                        v66.TextColor3 = not (not (not (not (not (not (not (not v268))))))) and Color3.fromRGB(0, 170, 255) or Color3.new(1, 1, 1)
+
+                        break
+                    end
+                end
+            end)
+
+            if v267.Character then
+                v269(v267.Character)
+            end
+        end
+        if v265 == 0 then
+            v266, v267 = game:GetService('RunService'), game:GetService('Players').LocalPlayer
+        end
+    end
+end)
+task.spawn(function()
+    local v270 = game:GetService('Players')
+    local v271 = game:GetService('RunService')
+    local v272 = v270.LocalPlayer
+    local v273 = workspace.CurrentCamera
+    local v274 = 3.5
+    local v275 = nil
+    local v276 = false
+    local v277 = nil
+
+    if (game:GetService('CoreGui')):FindFirstChild('Kriz_Warp_Safe') then
+        game:GetService('CoreGui').Kriz_Warp_Safe:Destroy()
+    end
+
+    local v278 = Instance.new('ScreenGui')
+
+    v278.Name = 'Kriz_Warp_Safe'
+    v278.Parent = game:GetService('CoreGui')
+    v278.ResetOnSpawn = false
+
+    local v282 = Instance.new('Frame')
+
+    v282.Size = UDim2.new(0, 130, 0, 80)
+    v282.Position = UDim2.new(0.5, -65, 0.5, -40)
+    v282.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    v282.BackgroundTransparency = 0.5
+    v282.BorderSizePixel = 0
+    v282.Active = true
+    v282.Draggable = true
+    v282.Parent = v278
+    v282.Visible = false
+
+    local v292 = Instance.new('UIStroke')
+
+    v292.Color = Color3.fromRGB(255, 0, 0)
+    v292.Thickness = 1.5
+    v292.Parent = v282
+    Instance.new('UICorner', v282).CornerRadius = UDim.new(0, 5)
+
+    local v297 = Instance.new('TextBox')
+
+    v297.Size = UDim2.new(1, -16, 0, 28)
+    v297.Position = UDim2.new(0, 8, 0, 8)
+    v297.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    v297.BackgroundTransparency = 0.8
+    v297.PlaceholderText = '\u{e0a}\u{e37}\u{e48}\u{e2d}\u{e40}\u{e1b}\u{e49}\u{e32}\u{e2b}\u{e21}\u{e32}\u{e22}'
+    v297.PlaceholderColor3 = Color3.fromRGB(160, 160, 160)
+    v297.Text = ''
+    v297.TextColor3 = Color3.fromRGB(255, 255, 255)
+    v297.TextSize = 14
+    v297.Font = Enum.Font.SourceSansBold
+    v297.Parent = v282
+    Instance.new('UICorner', v297).CornerRadius = UDim.new(0, 4)
+
+    local v311 = Instance.new('TextButton')
+
+    v311.Size = UDim2.new(1, -16, 0, 32)
+    v311.Position = UDim2.new(0, 8, 0, 40)
+    v311.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    v311.BackgroundTransparency = 0.8
+    v311.Text = '\u{e27}\u{e32}\u{e23}\u{e4c}\u{e1b}\u{e22}\u{e34}\u{e07}'
+    v311.TextColor3 = Color3.fromRGB(255, 255, 255)
+    v311.TextSize = 14
+    v311.Font = Enum.Font.SourceSansBold
+    v311.Parent = v282
+    Instance.new('UICorner', v311).CornerRadius = UDim.new(0, 4)
+
+    local function v322()
+        local v552 = 0
+        local v553
+
+        while true do
+            local v629 = 0
+
+            while true do
+                if v629 == 0 then
+                    if v552 == 1 then
+                        for v848, v849 in pairs(v270:GetPlayers())do
+                            if v849 ~= v272 and v849.Character then
+                                if (v849.Name:lower()):find(v553) or v849.DisplayName and (v849.DisplayName:lower()):find(v553) then
+                                    local v958 = 0
+                                    local v959
+                                    local v960
+                                    local v961
+
+                                    while true do
+                                        if v958 == 1 then
+                                            v961 = nil
+
+                                            while true do
+                                                if v959 == 0 then
+                                                    v849.Character:FindFirstChild('HumanoidRootPart')
+                                                    v849.Character:FindFirstChild('Humanoid')
+                                                end
+                                                if v959 == 1 then
+                                                    if v960 and (v961 and v961.Health > 0) then
+                                                        return v849.Character
+                                                    end
+
+                                                    break
+                                                end
+                                            end
+
+                                            break
+                                        end
+                                    end
+                                end
+                            end
+                        end
+
+                        return nil
+                    end
+                    if v552 == 0 then
+                        v553 = v297.Text:lower()
+
+                        if v553 == '' then
+                            return nil
+                        end
+                    end
+
+                    break
+                end
+            end
+        end
+    end
+    local function v323()
+        if v276 then
+            local v656 = v272.Character and v272.Character:FindFirstChild('HumanoidRootPart')
+            local v657 = v272.Character and v272.Character:FindFirstChild('Humanoid')
+
+            if v275 and v656 then
+                v656.CFrame = v275
+            end
+            if v657 then
+                v657:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+            end
+
+            v311.TextColor3 = Color3.fromRGB(255, 255, 255)
+        end
+    end
+
+    v311.MouseButton1Click:Connect(function()
+        if not v276 then
+            local v659 = 0
+            local v660
+            local v661
+            local v662
+            local v663
+
+            while true do
+                if v659 == 0 then
+                    local v806 = 0
+
+                    while true do
+                        if v806 == 0 then
+                            v322()
+                        end
+                        if 1 == v806 then
+                            break
+                        end
+                    end
+                end
+                if v659 == 2 then
+                    if v660 and (v662 and v663) then
+                        v311.TextColor3 = Color3.fromRGB(255, 50, 50)
+                        v663.Sit = false
+
+                        v663:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+                    end
+
+                    break
+                end
+                if v659 == 1 then
+                    v662 = v661 and v661:FindFirstChild('HumanoidRootPart')
+                    v663 = v661 and v661:FindFirstChild('Humanoid')
+                end
+            end
+        else
+            v323()
+        end
+    end)
+    v271.Heartbeat:Connect(function()
+        if v276 then
+            if v277 and (v277.Parent and (v277:FindFirstChild('Humanoid') and v277.Humanoid.Health > 0)) then
+                local v767 = 0
+                local v768
+                local v769
+                local v770
+                local v771
+
+                while true do
+                    if v767 == 0 then
+                        v769 = v272.Character and v272.Character:FindFirstChild('HumanoidRootPart')
+                    end
+                    if v767 == 2 then
+                        if v769 and (v770 and v771) then
+                            local v910 = 0
+                            local v911
+
+                            while true do
+                                if v910 == 1 then
+                                    v769.CFrame = CFrame.new(v911.Position, v770.Position)
+                                    v273.CFrame = CFrame.new(v273.CFrame.Position, v770.Position)
+
+                                    break
+                                end
+                                if v910 == 0 then
+                                    if v771.Sit then
+                                        v771.Sit = false
+                                    end
+
+                                    v911 = v770.CFrame * CFrame.new(0, 0, v274)
+                                end
+                            end
+                        end
+
+                        break
+                    end
+                    if v767 == 1 then
+                        local v854 = 0
+
+                        while true do
+                            if v854 == 0 then
+                                v277:FindFirstChild('HumanoidRootPart')
+
+                                v771 = v768 and v768:FindFirstChild('Humanoid')
+                            end
+                        end
+                    end
+                end
+            else
+                v323()
+            end
+        end
+    end)
+
+    if v77 and (v77:IsA('TextButton') or v77:IsA('GuiButton')) then
+        v77.MouseButton1Click:Connect(function()
+            v282.Visible = not v282.Visible
+
+            if v282.Visible then
+                v77.TextColor3 = Color3.fromRGB(255, 0, 0)
+            else
+                v77.TextColor3 = Color3.fromRGB(255, 255, 255)
+            end
+        end)
+    end
+end)
+task.spawn(function()
+    local v324 = 5
+    local v326 = false
+    local v327 = nil
+    local v328 = nil
+    local v329 = nil
+    local v330 = Instance.new('ScreenGui', game:GetService('CoreGui'))
+    local v331 = Instance.new('Frame', v330)
+
+    v331.Size = UDim2.new(0, 140, 0, 85)
+    v331.Position = UDim2.new(0.5, -70, 0.5, -42)
+    v331.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    v331.BackgroundTransparency = 0.5
+    v331.BorderSizePixel = 0
+    v331.Visible = false
+
+    local v338 = Instance.new('UIStroke', v331)
+
+    v338.Color = Color3.fromRGB(255, 0, 0)
+    v338.Thickness = 1.8
+    Instance.new('UICorner', v331).CornerRadius = UDim.new(0, 4)
+
+    local v342 = Instance.new('TextBox', v331)
+
+    v342.Size = UDim2.new(0, 126, 0, 30)
+    v342.Position = UDim2.new(0, 7, 0, 8)
+    v342.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    v342.BackgroundTransparency = 0.8
+    v342.PlaceholderText = '\u{e0a}\u{e37}\u{e48}\u{e2d}\u{e40}\u{e1b}\u{e49}\u{e32}\u{e2b}\u{e21}\u{e32}\u{e22}'
+    v342.Text = ''
+    v342.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Instance.new('UICorner', v342).CornerRadius = UDim.new(0, 2)
+
+    local v351 = Instance.new('TextButton', v331)
+
+    v351.Size = UDim2.new(0, 126, 0, 35)
+    v351.Position = UDim2.new(0, 7, 0, 43)
+    v351.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    v351.BackgroundTransparency = 0.8
+    v351.Text = '\u{e2a}\u{e34}\u{e07}\u{e40}\u{e17}\u{e49}\u{e32}'
+    v351.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Instance.new('UICorner', v351).CornerRadius = UDim.new(0, 2)
+
+    local function v359()
+        local v554 = 0
+        local v555
+
+        while true do
+            if v554 == 0 then
+                v351.Text = '\u{e2a}\u{e34}\u{e07}\u{e40}\u{e17}\u{e49}\u{e32}'
+            end
+            if v554 == 3 then
+                break
+            end
+            if 1 == v554 then
+                v351.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+                if v329 then
+                    v329:Disconnect()
+                end
+            end
+            if 2 == v554 then
+                v555 = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild('HumanoidRootPart')
+
+                if v555 then
+                    local v807 = 0
+
+                    while true do
+                        if v807 == 0 then
+                            if v328 then
+                                v555.CFrame = v328
+                            end
+
+                            v555.Velocity = Vector3.new(0, 0, 0)
+
+                            break
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    v351.MouseButton1Click:Connect(function()
+        if not v326 then
+            local v665 = v342.Text:lower()
+
+            if v665 == '' then
+                return
+            end
+
+            for v715, v716 in pairs(game.Players:GetPlayers())do
+                if v716 ~= game.Players.LocalPlayer and ((v716.Name:lower()):find(v665) or (v716.DisplayName:lower()):find(v665)) then
+                    if v716.Character and v716.Character:FindFirstChild('HumanoidRootPart') then
+                        v327 = v716.Character
+                        v351.Text = 'Lock: ' .. v716.DisplayName
+                        v351.TextColor3 = Color3.fromRGB(255, 50, 50)
+
+                        game.Players.PlayerRemoving:Connect(function(v895)
+                            if v327 and v895.Character == v327 then
+                                v359()
+                            end
+                        end)
+
+                        break
+                    end
+                end
+            end
+        else
+            v359()
+        end
+    end)
+    game:GetService('RunService').Heartbeat:Connect(function()
+        if v326 and (v327 and v327:FindFirstChild('HumanoidRootPart')) then
+            local v666 = 0
+            local v667
+            local v668
+
+            while true do
+                if v666 == 1 then
+                    if v667 and v668 then
+                        local v859 = 0
+                        local v861
+
+                        while true do
+                            if 0 == v859 then
+                                Vector3.new(v668.Velocity.X, math.clamp(v668.Velocity.Y, -10, 10), v668.Velocity.Z)
+                            end
+                            if v859 == 1 then
+                                v667.CFrame = CFrame.new(v861 - Vector3.new(0, v324, 0), v861 + v668.CFrame.LookVector)
+                                v667.Velocity = Vector3.new(0, 0, 0)
+
+                                break
+                            end
+                        end
+                    end
+
+                    break
+                end
+                if v666 == 0 then
+                    game.Players.LocalPlayer.Character:FindFirstChild('HumanoidRootPart')
+                end
+            end
+        elseif v326 then
+            v359()
+        end
+    end)
+
+    local v360, v361, v362
+
+    v331.InputBegan:Connect(function(v556)
+        if v556.UserInputType == Enum.UserInputType.MouseButton1 or v556.UserInputType == Enum.UserInputType.Touch then
+            v360, v361, v362 = true, v556.Position, v331.Position
+        end
+    end)
+    game:GetService('UserInputService').InputChanged:Connect(function(v557)
+        if v360 and (v557.UserInputType == Enum.UserInputType.MouseMovement or v557.UserInputType == Enum.UserInputType.Touch) then
+            v331.Position = UDim2.new(v362.X.Scale, v362.X.Offset + (v557.Position - v361).X, v362.Y.Scale, v362.Y.Offset + (v557.Position - v361).Y)
+        end
+    end)
+    v331.InputEnded:Connect(function() end)
+    v78.MouseButton1Click:Connect(function()
+        v331.Visible = not v331.Visible
+        v78.TextColor3 = v331.Visible and Color3.fromRGB(255, 50, 50) or Color3.fromRGB(255, 255, 255)
+    end)
+end)
+task.spawn(function()
+    local v363 = Instance.new('ScreenGui')
+    local v364 = Instance.new('Frame')
+    local v365 = Instance.new('TextButton')
+    local v366 = Instance.new('UIStroke')
+    local v367 = Instance.new('UICorner')
+    local v368 = Instance.new('UICorner')
+
+    v363.Name = 'AutoShoot_UI'
+    v363.Parent = game:GetService('CoreGui')
+    v363.ResetOnSpawn = false
+    v364.Parent = v363
+    v364.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    v364.BackgroundTransparency = 0.5
+    v364.Size = UDim2.new(0, 110, 0, 45)
+    v364.Position = UDim2.new(0.5, -55, 0.5, -22)
+    v364.Active = true
+    v364.Draggable = true
+    v364.Visible = false
+    v367.CornerRadius = UDim.new(0, 8)
+    v367.Parent = v364
+    v366.Parent = v364
+    v366.Color = Color3.fromRGB(255, 0, 0)
+    v366.Thickness = 2
+    v365.Parent = v364
+    v365.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    v365.BackgroundTransparency = 0.8
+    v365.Size = UDim2.new(1, -12, 1, -12)
+    v365.Position = UDim2.new(0, 6, 0, 6)
+    v365.Font = Enum.Font.SourceSansBold
+    v365.Text = '\u{e2d}\u{e2d}\u{e42}\u{e15}\u{e49}\u{e22}\u{e34}\u{e07}'
+    v365.TextColor3 = Color3.fromRGB(255, 255, 255)
+    v365.TextSize = 16
+    v368.CornerRadius = UDim.new(0, 6)
+    v368.Parent = v365
+
+    local v397 = false
+    local v398 = game:GetService('VirtualUser')
+    local v399 = game.Players.LocalPlayer
+    local v400 = game.Workspace.CurrentCamera
+
+    v365.MouseButton1Click:Connect(function()
+        local v560 = 0
+
+        while true do
+            if v560 == 0 then
+                v397 = not v397
+                v365.TextColor3 = not (not (not (not (not (not (not (not v397))))))) and Color3.fromRGB(255, 0, 0) or Color3.fromRGB(255, 255, 255)
+
+                break
+            end
+        end
+    end)
+
+    local function v401()
+        local v561 = v400:ViewportPointToRay(v400.ViewportSize.X / 2, v400.ViewportSize.Y / 2)
+        local v562 = RaycastParams.new()
+
+        v562.FilterType = Enum.RaycastFilterType.Exclude
+        v562.FilterDescendantsInstances = {
+            v399.Character,
+        }
+
+        local v566 = game.Workspace:Raycast(v561.Origin, v561.Direction * 1000, v562)
+
+        if v566 and v566.Instance then
+            local v673 = v566.Instance:FindFirstAncestorOfClass('Model')
+
+            if v673 and v673:FindFirstChild('Humanoid') then
+                return true
+            end
+        end
+
+        return false
+    end
+
+    task.spawn(function()
+        while true do
+            if v397 then
+                if v401() then
+                    v398:Button1Down(Vector2.new(0, 0), v400.CFrame)
+                    task.wait(0.08)
+                    v398:Button1Up(Vector2.new(0, 0), v400.CFrame)
+                    task.wait(0.04)
+                else
+                    task.wait(0.02)
+                end
+            else
+                task.wait(0.5)
+            end
+        end
+    end)
+
+    if v80 then
+        v80.MouseButton1Click:Connect(function()
+            if v364 then
+                v364.Visible = not v364.Visible
+                v80.TextColor3 = v364.Visible and Color3.fromRGB(255, 0, 0) or Color3.fromRGB(255, 255, 255)
+            end
+        end)
+    end
+end)
+task.spawn(function()
+    local v402, v403, v404 = game:GetService('Players'), game:GetService('RunService'), workspace.CurrentCamera
+    local v405 = v402.LocalPlayer
+    local v406, v407, v408 = false, 120, 0.4500000000000455
+    local v409 = Instance.new('ScreenGui', v402.LocalPlayer.PlayerGui)
+
+    v409.Name = 'KrizLock'
+    v409.ResetOnSpawn = false
+    v409.IgnoreGuiInset = true
+
+    local v413 = Instance.new('Frame', v409)
+
+    v413.Size, v413.AnchorPoint, v413.Position, v413.BackgroundTransparency, v413.Visible = UDim2.new(0, 240, 0, 240), Vector2.new(0.5, 0.5), UDim2.new(0.5, 0, 0.5, 0), 1, false
+
+    local v419 = Instance.new('UIStroke', v413)
+
+    v419.Color, v419.Thickness = Color3.new(1, 1, 1), 1.2
+    Instance.new('UICorner', v413).CornerRadius = UDim.new(1, 0)
+
+    local function v423(v567)
+        local v568 = 0
+        local v569
+        local v570
+        local v571
+
+        while true do
+            if 2 == v568 then
+                local v718 = 0
+
+                while true do
+                    if v718 == 0 then
+                        v571.FilterType = Enum.RaycastFilterType.Exclude
+
+                        return workspace:Raycast(v569, v570, v571) == nil
+                    end
+                end
+            end
+            if v568 == 1 then
+                v571 = RaycastParams.new()
+                v571.FilterDescendantsInstances = {
+                    v405.Character,
+                    v567.Parent,
+                }
+            end
+        end
+    end
+    local function v424()
+        local v572 = 0
+        local v573
+        local v574
+        local v575
+
+        while true do
+            local v630 = 0
+
+            while true do
+                if v630 == 0 then
+                    if v572 == 1 then
+                        local v823 = 0
+
+                        while true do
+                            if 0 == v823 then
+                                for v943, v944 in pairs(v402:GetPlayers())do
+                                    if v944 ~= v405 and (v944.Character and v944.Character:FindFirstChild('Head')) then
+                                        local v973 = 0
+                                        local v974
+
+                                        while true do
+                                            if v973 == 0 then
+                                                v974 = v944.Character:FindFirstChild('Humanoid')
+
+                                                if v974 and v974.Health > 0 then
+                                                    local v988, v989 = v404:WorldToViewportPoint(v944.Character.Head.Position)
+
+                                                    if v989 then
+                                                        local v990 = 0
+                                                        local v991
+
+                                                        while true do
+                                                            if v990 == 0 then
+                                                                v991 = (Vector2.new(v988.X, v988.Y) - v575).Magnitude
+
+                                                                if v991 < v574 and v423(v944.Character.Head) then
+                                                                    v573, v574 = v944.Character.Head, v991
+                                                                end
+
+                                                                break
+                                                            end
+                                                        end
+                                                    end
+                                                end
+
+                                                break
+                                            end
+                                        end
+                                    end
+                                end
+
+                                return v573
+                            end
+                        end
+                    end
+                    if v572 == 0 then
+                        v573, v574 = nil, v407
+
+                        Vector2.new(v404.ViewportSize.X / 2, v404.ViewportSize.Y / 2)
+                    end
+
+                    break
+                end
+            end
+        end
+    end
+
+    v81.MouseButton1Click:Connect(function()
+        v406 = not v406
+        v81.TextColor3 = not (not (not (not (not (not (not (not v406))))))) and Color3.new(1, 0, 0) or Color3.new(1, 1, 1)
+        v413.Visible = not (not (not (not (not (not (not (not v406)))))))
+    end)
+    v403.RenderStepped:Connect(function()
+        if v406 then
+            local v674 = 0
+            local v675
+
+            while true do
+                if v674 == 0 then
+                    v675 = v424()
+
+                    if v675 then
+                        v404.CFrame = v404.CFrame:Lerp(CFrame.lookAt(v404.CFrame.Position, v675.Position), v408)
+                    end
+
+                    break
+                end
+            end
+        end
+    end)
+end)
+task.spawn(function()
+    local v425, v426, v427, v428 = game:GetService('Players'), game:GetService('RunService'), game:GetService('UserInputService'), game:GetService('Workspace')
+    local v429, v430 = v425.LocalPlayer, v428.CurrentCamera
+    local v431, v432, v433, v434 = 50, 20000, 20000, 60
+    local v435, v436, v437, v438 = false, false, 0, 0
+    local v439, v440, v441, v442, v443, v444
+
+    local function v445()
+        local v578 = 0
+
+        while true do
+            if v578 == 0 then
+                if not v436 then
+                    return
+                end
+            end
+            if v578 == 2 then
+                if v444 then
+                    v444:Destroy()
+                end
+                if v440 and (v429.Character and v429.Character:FindFirstChild('HumanoidRootPart')) then
+                    v429.Character.HumanoidRootPart.CFrame = v440.CFrame
+                end
+            end
+            if 1 == v578 then
+                if v443 then
+                    v443:Disconnect()
+                end
+                if v442 then
+                    v442:Disconnect()
+                end
+            end
+            if v578 == 3 then
+                if v439 then
+                    v439:Destroy()
+                end
+
+                v430.CameraType, v429.Character.Humanoid.AutoRotate = 3, true
+
+                break
+            end
+        end
+    end
+    local function v446()
+        local v579 = 0
+        local v580
+        local v581
+        local v582
+        local v583
+        local v584
+
+        while true do
+            if 4 == v579 then
+                v426.Heartbeat:Connect(function()
+                    local v776 = 0
+                    local v777
+
+                    while true do
+                        if v776 == 0 then
+                            v777 = 0
+
+                            while true do
+                                if v777 == 1 then
+                                    v440.CFrame = CFrame.new(v440.Position) * CFrame.Angles(0, math.rad(v437), 0)
+                                    v581.Velocity = Vector3.zero
+                                end
+                                if v777 == 2 then
+                                    v583 = v583 % #v584 + 1
+                                    v581.CFrame = CFrame.new((v440.Position + Vector3.new(0, v432, 0)) + v584[(((((((v583 % #v584 + 1) % #v584 + 1) % #v584 + 1) % #v584 + 1) % #v584 + 1) % #v584 + 1) % #v584 + 1) % #v584 + 1])
+
+                                    break
+                                end
+                                if 0 == v777 then
+                                    if not v436 or not v580:FindFirstChild('HumanoidRootPart') then
+                                        return
+                                    end
+
+                                    v440.Velocity = Vector3.new(v582.MoveDirection.X * v431, v440.Velocity.Y, v582.MoveDirection.Z * v431)
+                                end
+                            end
+
+                            break
+                        end
+                    end
+                end)
+
+                break
+            end
+            if v579 == 2 then
+                v439.Parent = v428
+                v439.Humanoid.HipHeight = 2.5
+
+                Instance.new('Highlight', v439)
+            end
+            if v579 == 0 then
+                if v436 or not v435 or not v429.Character then
+                    return
+                end
+
+                v581, v582 = v429.Character.HumanoidRootPart, v429.Character.Humanoid
+            end
+            if v579 == 1 then
+                v582.AutoRotate, v430.CameraType = false, 6
+                v580.Archivable = true
+                v439 = v580:Clone()
+                v439.Name = 'KrizGhost'
+            end
+            if v579 == 3 then
+                v444.FillTransparency = 1
+                v444.OutlineColor = Color3.new(0, 1, 0)
+
+                v426.RenderStepped:Connect(function()
+                    if v436 and v440 then
+                        local v824 = 0
+                        local v825
+
+                        while true do
+                            if v824 == 0 then
+                                v825 = v440.Position + Vector3.new(0, 2, 0)
+                                v430.CFrame = ((CFrame.new(v825) * CFrame.Angles(0, math.rad(v437), 0)) * CFrame.Angles(math.rad(v438), 0, 0)) * CFrame.new(0, 0, 12)
+                            end
+                            if v824 == 1 then
+                                v430.Focus = CFrame.new(v825)
+
+                                break
+                            end
+                        end
+                    end
+                end)
+
+                v583, v584 = 1, {
+                    Vector3.new(0, 0, 0),
+                    Vector3.new(v433, 0, 0),
+                    Vector3.new(-v433, 0, 0),
+                    Vector3.new(0, 0, v433),
+                    Vector3.new(0, 0, -v433),
+                }
+            end
+        end
+    end
+
+    v427.InputChanged:Connect(function(v585)
+        if v436 and (v585.UserInputType == Enum.UserInputType.MouseMovement or v585.UserInputType == Enum.UserInputType.Touch) then
+            local v676 = 0
+
+            while true do
+                if v676 == 0 then
+                    if v585.Position.X > v430.ViewportSize.X / 2 or v585.UserInputType == Enum.UserInputType.MouseMovement then
+                        math.clamp(v438 - v585.Delta.Y * 0.39999999999997726, -80, 80)
+                    end
+
+                    break
+                end
+            end
+        end
+    end)
+
+    local function v447()
+        if not v435 or not v429.Character then
+            return
+        end
+
+        local v586 = v429.Character:FindFirstChildOfClass('Humanoid')
+
+        if v586 then
+            if v586.Health <= v434 and not v436 then
+                v446()
+            elseif v586.Health > v434 and v436 then
+                v445()
+            end
+        end
+    end
+
+    v91.MouseButton1Click:Connect(function()
+        local v587 = 0
+
+        while true do
+            if 0 == v587 then
+                v435 = not v435
+                v91.TextColor3 = not (not (not (not (not (not (not (not v435))))))) and Color3.fromRGB(0, 255, 127) or Color3.new(1, 1, 1)
+            end
+            if v587 == 1 then
+                if v435 then
+                    if v429.Character then
+                        local v863 = 0
+                        local v864
+
+                        while true do
+                            if v863 == 0 then
+                                v864 = 0
+
+                                while true do
+                                    if v864 == 0 then
+                                        v429.Character.Humanoid.HealthChanged:Connect(v447)
+                                        v447()
+
+                                        break
+                                    end
+                                end
+
+                                break
+                            end
+                        end
+                    end
+                else
+                    local v812 = 0
+
+                    while true do
+                        if v812 == 0 then
+                            if v441 then
+                                v441:Disconnect()
+                            end
+
+                            v445()
+
+                            break
+                        end
+                    end
+                end
+
+                break
+            end
+        end
+    end)
+    v425.LocalPlayer.CharacterAdded:Connect(function(v588)
+        local v589 = 0
+
+        while true do
+            if v589 == 0 then
+                v445()
+
+                if v435 then
+                    v588:WaitForChild('Humanoid').HealthChanged:Connect(v447)
+                end
+
+                break
+            end
+        end
+    end)
+end)
+task.spawn(function()
+    local v448 = 0
+    local v449
+    local v450
+    local v451
+    local v452
+    local v453
+
+    while true do
+        if v448 == 1 then
+            function v453(v736)
+                local v737 = 0
+                local v738
+                local v739
+
+                while true do
+                    if 1 == v737 then
+                        if v739:FindFirstChild('Gun') or v738 and v738:FindFirstChild('Gun') then
+                            return Color3.new(0, 0, 1)
+                        end
+
+                        return v736.Team and (v736.Team == v451.Team and Color3.new(1, 1, 1)) or v736.TeamColor and v736.TeamColor.Color or Color3.new(1, 1, 1)
+                    end
+                    if 0 == v737 then
+                        v738, v739 = v736.Character, v736.Backpack
+
+                        if v739:FindFirstChild('Knife') or v738 and v738:FindFirstChild('Knife') then
+                            return Color3.new(1, 0, 0)
+                        end
+                    end
+                end
+            end
+        end
+        if v448 == 0 then
+            v449, v450, v451 = game:GetService('Players'), game:GetService('RunService'), game:GetService('Players').LocalPlayer
+        end
+        if v448 == 2 then
+            v450.RenderStepped:Connect(function()
+                if not v452 then
+                    return
+                end
+
+                for v778, v779 in pairs(v449:GetPlayers())do
+                    if v779 ~= v451 and v779.Character then
+                        local v828 = 0
+                        local v829
+
+                        while true do
+                            if v828 == 0 then
+                                local v914 = 0
+
+                                while true do
+                                    if v914 == 0 then
+                                        v829 = v779.Character:FindFirstChild('KrizHigh') or Instance.new('Highlight', v779.Character)
+                                        v829.Name = 'KrizHigh'
+                                    end
+                                end
+                            end
+                            if v828 == 1 then
+                                v829.FillTransparency = 1
+                                v829.OutlineTransparency = 0
+                            end
+                            if v828 == 2 then
+                                v829.OutlineColor = v453(v779)
+                                v829.Enabled = true
+
+                                break
+                            end
+                        end
+                    end
+                end
+            end)
+            v102.MouseButton1Click:Connect(function()
+                local v740 = 0
+                local v741
+
+                while true do
+                    if 0 == v740 then
+                        v741 = 0
+
+                        while true do
+                            if 1 == v741 then
+                                if not v452 then
+                                    for v976, v977 in pairs(v449:GetPlayers())do
+                                        if v977.Character and v977.Character:FindFirstChild('KrizHigh') then
+                                            v977.Character.KrizHigh:Destroy()
+                                        end
+                                    end
+                                end
+
+                                break
+                            end
+                            if v741 == 0 then
+                                v452 = not v452
+                                v102.TextColor3 = not (not (not (not (not (not (not (not v452))))))) and Color3.fromRGB(0, 170, 255) or Color3.new(1, 1, 1)
+                            end
+                        end
+
+                        break
+                    end
+                end
+            end)
+
+            break
+        end
+    end
+end)
+task.spawn(function()
+    local v454, v455, v456, v457 = game:GetService('Players'), game:GetService('RunService'), workspace.CurrentCamera, game:GetService('Players').LocalPlayer
+    local v458, v459 = false, {}
+
+    local function v460(v590)
+        local v591, v592 = v590.Character, v590.Backpack
+
+        if v590.Backpack:FindFirstChild('Knife') or v590.Character and v590.Character:FindFirstChild('Knife') then
+            return Color3.new(1, 0, 0)
+        end
+        if v592:FindFirstChild('Gun') or v591 and v591:FindFirstChild('Gun') then
+            return Color3.new(0, 0, 1)
+        end
+
+        return v590.Team and (v590.Team == v457.Team and Color3.new(1, 1, 1)) or v590.TeamColor and v590.TeamColor.Color or Color3.new(1, 1, 1)
+    end
+
+    v455.RenderStepped:Connect(function()
+        for v631, v632 in pairs(v459)do
+            if v458 and (v631.Character and v631.Character:FindFirstChild('HumanoidRootPart')) then
+                local v742 = 0
+                local v743
+                local v744
+
+                while true do
+                    if v742 == 0 then
+                        v743, v744 = v456:WorldToViewportPoint(v631.Character.HumanoidRootPart.Position)
+
+                        if v744 then
+                            local v896 = 0
+
+                            while true do
+                                if v896 == 0 then
+                                    v632.From = Vector2.new(v456.ViewportSize.X / 2, 0)
+                                    v632.To = Vector2.new(v743.X, v743.Y)
+                                end
+                                if v896 == 1 then
+                                    v632.Color = v460(v631)
+                                    v632.Visible = true
+
+                                    break
+                                end
+                            end
+                        else
+                            v632.Visible = false
+                        end
+
+                        break
+                    end
+                end
+            else
+                v632.Visible = false
+            end
+        end
+    end)
+    v103.MouseButton1Click:Connect(function()
+        local v593 = 0
+        local v594
+
+        while true do
+            if v593 == 0 then
+                v594 = 0
+
+                while true do
+                    if v594 == 0 then
+                        v458 = not v458
+                        v103.TextColor3 = not (not (not (not (not (not (not (not v458))))))) and Color3.fromRGB(0, 170, 255) or Color3.new(1, 1, 1)
+                    end
+                    if v594 == 1 then
+                        if v458 then
+                            for v920, v921 in pairs(v454:GetPlayers())do
+                                if v921 ~= v457 and not v459[v921] then
+                                    v459[v921] = Drawing.new('Line')
+                                    v459[v921].Thickness = 1.5
+                                end
+                            end
+                        end
+
+                        break
+                    end
+                end
+
+                break
+            end
+        end
+    end)
+end)
+task.spawn(function()
+    local v461, v462, v463 = game:GetService('Players'), game:GetService('RunService'), false
+
+    local function v464(v595)
+        local v596 = 0
+        local v597
+        local v599
+        local v600
+        local v601
+
+        while true do
+            if v596 == 2 then
+                v600 = v599:FindFirstChild('L') or Instance.new('UIListLayout', v599)
+                v600.Name = 'L'
+                v600.FillDirection = 'Horizontal'
+                v600.HorizontalAlignment = 'Center'
+            end
+            if v596 == 3 then
+                for v780, v781 in pairs(v599:GetChildren())do
+                    if v781:IsA('TextLabel') then
+                        v781:Destroy()
+                    end
+                end
+
+                v601 = v595.Backpack:GetChildren()
+
+                for v782, v783 in pairs(v597:GetChildren())do
+                    if v783:IsA('Tool') then
+                        table.insert(v601, v783)
+                    end
+                end
+                for v784, v785 in pairs(v601)do
+                    local v786 = 0
+                    local v787
+
+                    while true do
+                        if 0 == v786 then
+                            local v865 = 0
+
+                            while true do
+                                if v865 == 0 then
+                                    v787 = Instance.new('TextLabel', v599)
+                                    v787.Size = UDim2.new(0, 40, 0, 20)
+                                end
+                            end
+                        end
+                        if v786 == 2 then
+                            v787.Text = v785.Name
+                            v787.TextColor3 = Color3.new(1, 1, 1)
+                        end
+                        if v786 == 1 then
+                            v787.BackgroundTransparency = 0.5
+                            v787.BackgroundColor3 = Color3.new(0, 0, 0)
+                        end
+                        if v786 == 3 then
+                            v787.TextSize = 10
+
+                            Instance.new('UIStroke', v787)
+
+                            break
+                        end
+                    end
+                end
+
+                break
+            end
+            if v596 == 1 then
+                v599.Name = 'KrizScan'
+                v599.AlwaysOnTop = true
+                v599.Size = UDim2.new(5, 0, 2, 0)
+                v599.StudsOffset = Vector3.new(0, 3, 0)
+            end
+            if v596 == 0 then
+                local v753 = 0
+
+                while true do
+                    if v753 == 0 then
+                        if not v595.Character or not v595.Character:FindFirstChild('HumanoidRootPart') then
+                            return
+                        end
+                    end
+                    if v753 == 2 then
+                        break
+                    end
+                    if v753 == 1 then
+                        v599 = v597.HumanoidRootPart:FindFirstChild('KrizScan') or Instance.new('BillboardGui', v597.HumanoidRootPart)
+                    end
+                end
+            end
+        end
+    end
+
+    v462.RenderStepped:Connect(function()
+        local v602 = 0
+
+        while true do
+            if v602 == 0 then
+                if not v463 then
+                    return
+                end
+
+                for v788, v789 in pairs(v461:GetPlayers())do
+                    if v789 ~= game.Players.LocalPlayer then
+                        v464(v789)
+                    end
+                end
+
+                break
+            end
+        end
+    end)
+    v105.MouseButton1Click:Connect(function()
+        local v603 = 0
+
+        while true do
+            if v603 == 1 then
+                if not v463 then
+                    for v833, v834 in pairs(v461:GetPlayers())do
+                        pcall(function()
+                            v834.Character.HumanoidRootPart.KrizScan:Destroy()
+                        end)
+                    end
+                end
+
+                break
+            end
+            if v603 == 0 then
+                v463 = not v463
+                v105.TextColor3 = not (not (not (not (not (not (not (not v463))))))) and Color3.fromRGB(0, 170, 255) or Color3.new(1, 1, 1)
+            end
+        end
+    end)
+end)
+task.spawn(function()
+    local v465, v466, v467, v468 = game:GetService('Players'), game:GetService('RunService'), workspace.CurrentCamera, game:GetService('Players').LocalPlayer
+    local v469, v470, v471 = false, Drawing.new('Line'), Drawing.new('Text')
+
+    v470.Thickness = 1.5
+    v471.Size = 15
+    v471.Outline = true
+    v471.Center = true
+
+    local function v476(v604)
+        local v605 = 0
+        local v606
+        local v607
+
+        while true do
+            if 1 == v605 then
+                local v755 = 0
+
+                while true do
+                    if v755 == 0 then
+                        if v607:FindFirstChild('Gun') or v606 and v606:FindFirstChild('Gun') then
+                            return Color3.new(0, 0, 1)
+                        end
+
+                        return v604.Team and (v604.Team == v468.Team and Color3.new(1, 1, 1)) or v604.TeamColor and v604.TeamColor.Color or Color3.new(1, 1, 1)
+                    end
+                end
+            end
+            if v605 == 0 then
+                v606, v607 = v604.Character, v604.Backpack
+
+                if v607:FindFirstChild('Knife') or v606 and v606:FindFirstChild('Knife') then
+                    return Color3.new(1, 0, 0)
+                end
+            end
+        end
+    end
+
+    v466.RenderStepped:Connect(function()
+        if not v469 or not v468.Character or not v468.Character:FindFirstChild('HumanoidRootPart') then
+            local v679 = 0
+
+            while true do
+                local v758 = 0
+
+                while true do
+                    if v758 == 0 then
+                        if 1 == v679 then
+                            return
+                        end
+                        if v679 == 0 then
+                            v470.Visible = false
+                            v471.Visible = false
+                        end
+
+                        break
+                    end
+                end
+            end
+        end
+
+        local v608, v609 = nil, 200
+
+        for v633, v634 in pairs(v465:GetPlayers())do
+            if v634 ~= v468 and (v634.Character and v634.Character:FindFirstChild('HumanoidRootPart')) then
+                if (v468.Character.HumanoidRootPart.Position - v634.Character.HumanoidRootPart.Position).Magnitude < v609 then
+                    while false do end
+                end
+            end
+        end
+
+        if v608 then
+            local v680, v681 = v467:WorldToViewportPoint(v468.Character.HumanoidRootPart.Position)
+            local v682, v683 = v467:WorldToViewportPoint(v608.Character.HumanoidRootPart.Position)
+
+            if v681 and v683 then
+                local v790 = 0
+                local v791
+
+                while true do
+                    if 1 == v790 then
+                        v470.To = Vector2.new(v682.X, v682.Y)
+                        v470.Color = v791
+                    end
+                    if v790 == 0 then
+                        v476(v608)
+
+                        v470.From = Vector2.new(v680.X, v680.Y)
+                    end
+                    if v790 == 4 then
+                        local v875 = 0
+
+                        while true do
+                            if v875 == 0 then
+                                v471.Visible = true
+
+                                return
+                            end
+                        end
+                    end
+                    if v790 == 2 then
+                        v470.Visible = true
+                        v471.Position = (v470.From + v470.To) / 2
+                    end
+                    if v790 == 3 then
+                        v471.Text = math.floor(v609) .. 'm'
+                        v471.Color = v791
+                    end
+                end
+            end
+        end
+
+        v470.Visible = false
+        v471.Visible = false
+    end)
+    v106.MouseButton1Click:Connect(function()
+        v469 = not v469
+        v106.TextColor3 = not (not (not (not (not (not (not (not v469))))))) and Color3.fromRGB(0, 170, 255) or Color3.new(1, 1, 1)
+    end)
+end)
+task.spawn(function()
+    local v477 = game:GetService('Players')
+    local v478 = game:GetService('RunService')
+    local v479 = v477.LocalPlayer
+    local v480 = 'rbxassetid://129423030'
+    local v481 = 60
+    local v482 = tick()
+
+    _G.SyncStates = _G.SyncStates or {}
+    _G.LastDetected = _G.LastDetected or {}
+    _G.ActivexxxModels = _G.ActivexxxModels or {}
+    _G.SelfActivexxx = _G.SelfActivexxx or false
+
+    local v483 = Color3.fromRGB(211, 130, 175)
+    local v484 = {
+        P1 = {
+            OffsetPos = Vector3.new(0.45, -1.2, 0.55),
+            Scale = Vector3.new(2, 2, 2),
+            Rot = Vector3.new(0, 0, 0),
+        },
+        P2 = {
+            OffsetPos = Vector3.new(-0.45, -1.2000000000000002, 0.55),
+            Scale = Vector3.new(2, 2, 2),
+            Rot = Vector3.new(0, 0, 0),
+        },
+        P3 = {
+            OffsetPos = Vector3.new(0.14999999999997726, -1.1500000000000057, -0.4),
+            Scale = Vector3.new(0.6, 0.9, 0.9),
+            Rot = Vector3.new(0, 0, 0),
+        },
+        P4 = {
+            OffsetPos = Vector3.new(-0.15, -1.15, -0.4),
+            Scale = Vector3.new(0.6, 0.9, 0.9),
+            Rot = Vector3.new(0, 0, 0),
+        },
+        P5 = {
+            OffsetPos = Vector3.new(0, -1.2, -0.4),
+            Scale = Vector3.new(0.1, 0.7999999999999972, 0.9),
+            Rot = Vector3.new(0, 0, 0),
+        },
+        P6 = {
+            OffsetPos = Vector3.new(0.4, 0.1, -0.65),
+            Scale = Vector3.new(1.5, 1.5, 1.6),
+            Rot = Vector3.new(-20, -20, 0),
+        },
+        P7 = {
+            OffsetPos = Vector3.new(-0.40000000000009095, 0.1, -0.65),
+            Scale = Vector3.new(1.5, 1.5, 1.599999999999909),
+            Rot = Vector3.new(-20, 20, 0),
+        },
+        P8 = {
+            OffsetPos = Vector3.new(0.6999999999999886, -0.1, -1.2999999999999545),
+            Scale = Vector3.new(0.40000000000009095, 0.4, 0.5),
+            Rot = Vector3.new(0, -20, 0),
+        },
+        P9 = {
+            OffsetPos = Vector3.new(-0.7000000000000455, -0.1, -1.2999999999999545),
+            Scale = Vector3.new(0.4, 0.4, 0.5),
+            Rot = Vector3.new(0, 20, 0),
+        },
+    }
+
+    local function v485(v613)
+        local v614 = 0
+        local v615
+
+        while true do
+            if 0 == v614 then
+                v615 = _G.ActivexxxModels[v613]
+
+                if _G.ActivexxxModels[v613] then
+                    local v814 = 0
+                    local v815
+
+                    while true do
+                        if v814 == 1 then
+                            v815 = v477:FindFirstChild(v613) and v477[v613].Character
+
+                            if v815 then
+                                for v968, v969 in pairs({
+                                    'Left Leg',
+                                    'Right Leg',
+                                })do
+                                    local v970 = v815:FindFirstChild(v969)
+
+                                    if v970 then
+                                        local v980 = v970:FindFirstChildOfClass('SpecialMesh')
+
+                                        if v980 then
+                                            v980:Destroy()
+                                        end
+
+                                        v970.Material = Enum.Material.Plastic
+                                    end
+                                end
+                            end
+                        end
+                        if v814 == 2 then
+                            _G.ActivexxxModels[v613] = nil
+
+                            break
+                        end
+                        if v814 == 0 then
+                            if v615.model then
+                                v615.model:Destroy()
+                            end
+                            if v615.storage then
+                                local v952 = 0
+                                local v953
+
+                                while true do
+                                    if v952 == 0 then
+                                        v953 = v477:FindFirstChild(v613) and v477[v613].Character
+
+                                        if v953 then
+                                            for v985, v986 in pairs(v615.storage:GetChildren())do
+                                                v986.Parent = v953
+                                            end
+                                        end
+                                    end
+                                    if v952 == 1 then
+                                        v615.storage:Destroy()
+
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+
+                break
+            end
+        end
+    end
+
+    _G.BuildxxxBody = function(v616)
+        local v617 = 0
+        local v618
+        local v619
+        local v620
+        local v621
+
+        while true do
+            if v617 == 0 then
+                if not v616 or _G.ActivexxxModels[v616.Name] then
+                    return
+                end
+
+                for v792, v793 in pairs({
+                    'Left Leg',
+                    'Right Leg',
+                })do
+                    local v794 = 0
+                    local v795
+
+                    while true do
+                        if v794 == 0 then
+                            v795 = v616:FindFirstChild(v793)
+
+                            if v795 then
+                                local v922 = Instance.new('SpecialMesh', v795)
+
+                                v922.Scale = Vector3.new(1.8000000000000114, 1, 2)
+                                v795.Material = Enum.Material.SmoothPlastic
+                            end
+
+                            break
+                        end
+                    end
+                end
+            end
+            if 3 == v617 then
+                v620 = v616:FindFirstChildOfClass('BodyColors') and v616:FindFirstChildOfClass('BodyColors').HeadColor3 or Color3.fromRGB(163, 110, 84)
+
+                v616:FindFirstChild('HumanoidRootPart')
+            end
+            if v617 == 1 then
+                v618 = Instance.new('Folder', workspace.CurrentCamera)
+                v618.Name = 'xxx_Storage_' .. v616.Name
+            end
+            if v617 == 4 then
+                if v621 then
+                    for v835, v836 in pairs(v484)do
+                        local v837 = 0
+                        local v838
+                        local v839
+
+                        while true do
+                            if v837 == 1 then
+                                v838.Color = (v835 == 'P5' or v835 == 'P8' or v835 == 'P9') and v483 or v620
+                                v838.Material, v838.Massless = Enum.Material.SmoothPlastic, true
+                            end
+                            if 2 == v837 then
+                                v839 = Instance.new('Weld', v838)
+                                v839.Part0, v839.Part1 = v621, v838
+                            end
+                            if v837 == 0 then
+                                v838 = Instance.new('Part', v619)
+                                v838.Shape, v838.Size, v838.CanCollide = Enum.PartType.Ball, Vector3.new(v836.Scale.X, v836.Scale.Y, v836.Scale.Z), false
+                            end
+                            if v837 == 3 then
+                                v839.C0 = CFrame.new(v836.OffsetPos) * CFrame.Angles(math.rad(v836.Rot.X), math.rad(v836.Rot.Y), math.rad(v836.Rot.Z))
+
+                                break
+                            end
+                        end
+                    end
+                end
+
+                _G.ActivexxxModels[v616.Name] = {
+                    model = v619,
+                    storage = v618,
+                }
+
+                break
+            end
+            if 2 == v617 then
+                for v796, v797 in pairs(v616:GetChildren())do
+                    if v797:IsA('Shirt') or v797:IsA('Pants') or v797:IsA('ShirtGraphic') then
+                        v797.Parent = v618
+                    end
+                end
+
+                Instance.new('Model', v616)
+            end
+        end
+    end
+
+    local function v486()
+        local v622 = v479.Character and v479.Character:FindFirstChild('Humanoid')
+
+        if v622 then
+            local v684 = Instance.new('Animation')
+
+            v684.AnimationId = v480
+
+            local v686 = v622:LoadAnimation(v684)
+
+            v686.Priority = Enum.AnimationPriority.Action
+
+            v686:Play()
+            task.wait(0.2)
+            v686:Stop()
+        end
+    end
+
+    task.spawn(function()
+        while task.wait(1) do
+            if _G.SelfActivexxx and tick() - v482 > v481 then
+                tick()
+                v486()
+            end
+        end
+    end)
+
+    local v487 = Instance.new('ScreenGui', v477.LocalPlayer.PlayerGui)
+
+    v487.Name = 'xxx_PulseUI'
+    v487.ResetOnSpawn = false
+
+    local v490 = Instance.new('Frame', v487)
+
+    v490.Size = UDim2.new(0, 45, 0, 22)
+    v490.Position = UDim2.new(0, 10, 0, 60)
+    v490.BackgroundColor3 = Color3.new(0, 0, 0)
+    v490.BackgroundTransparency = 0.5
+
+    local v495 = Instance.new('TextButton', v490)
+
+    v495.Size = UDim2.new(1, -10, 1, -10)
+    v495.Position = UDim2.new(0, 5, 0, 5)
+    v495.Text = '\u{1f975}'
+    v495.TextColor3 = Color3.new(1, 1, 1)
+    v495.BackgroundTransparency = 0.8
+
+    v495.MouseButton1Click:Connect(function()
+        _G.SelfActivexxx = not _G.SelfActivexxx
+
+        tick()
+        v486()
+
+        if not _G.SelfActivexxx then
+            local v689 = 0
+
+            while true do
+                if v689 == 0 then
+                    _G.SyncStates[v479.Name] = false
+
+                    v485(v479.Name)
+
+                    break
+                end
+            end
+        else
+            _G.SyncStates[v479.Name] = true
+        end
+    end)
+    v478.Heartbeat:Connect(function()
+        for v635, v636 in pairs(v477:GetPlayers())do
+            if v636 ~= v479 then
+                local v761 = 0
+                local v762
+
+                while true do
+                    if v761 == 0 then
+                        v762 = v636.Character and v636.Character:FindFirstChild('Humanoid')
+
+                        if v762 then
+                            local v900 = 0
+                            local v901
+
+                            while true do
+                                if v900 == 1 then
+                                    if v901 and not _G.LastDetected[v636.Name] then
+                                        local v983 = 0
+
+                                        while true do
+                                            if v983 == 0 then
+                                                _G.SyncStates[v636.Name] = not _G.SyncStates[v636.Name]
+
+                                                if _G.SyncStates[v636.Name] then
+                                                    _G.BuildxxxBody(v636.Character)
+                                                else
+                                                    v485(v636.Name)
+                                                end
+
+                                                break
+                                            end
+                                        end
+                                    end
+
+                                    _G.LastDetected[v636.Name] = v901
+
+                                    break
+                                end
+                                if v900 == 0 then
+                                    for v978, v979 in pairs(v762:GetPlayingAnimationTracks())do
+                                        if v979.Animation.AnimationId == v480 then
+                                            break
+                                        end
+                                    end
+                                end
+                            end
+                        end
+
+                        break
+                    end
+                end
+            elseif _G.SelfActivexxx and not _G.ActivexxxModels[v479.Name] then
+                _G.BuildxxxBody(v479.Character)
+            end
+        end
+    end)
+end)
+task.spawn(function()
+    local key = 'KRIZHUB123'
+    local keyGui = Instance.new('ScreenGui', game:GetService('CoreGui'))
+    local bg = Instance.new('Frame', keyGui)
+
+    bg.Size = UDim2.new(1, 500, 1, 500)
+    bg.Position = UDim2.new(0, -250, 0, -250)
+    bg.BackgroundColor3 = Color3.new(0, 0, 0)
+    bg.Active = true
+
+    local container = Instance.new('Frame', bg)
+
+    container.Size = UDim2.new(0, 280, 0, 250)
+    container.Position = UDim2.new(0.5, -140, 0.5, -125)
+    container.BackgroundTransparency = 1
+
+    local title = Instance.new('TextLabel', container)
+
+    title.Size = UDim2.new(1, 0, 0, 50)
+    title.Text = 'KRIZ HUB'
+    title.TextColor3 = Color3.new(1, 1, 1)
+    title.TextSize = 30
+    title.Font = Enum.Font.Michroma
+    title.BackgroundTransparency = 1
+
+    local keyHint = Instance.new('TextLabel', container)
+
+    keyHint.Size = UDim2.new(1, 0, 0, 20)
+    keyHint.Position = UDim2.new(0, 0, 0, 55)
+    keyHint.Text = '\u{e04}\u{e35}\u{e22}\u{e4c}\u{e04}\u{e37}\u{e2d} : KRIZHUB123'
+    keyHint.TextColor3 = Color3.fromRGB(0, 170, 255)
+    keyHint.TextSize = 16
+    keyHint.Font = Enum.Font.SourceSansBold
+    keyHint.BackgroundTransparency = 1
+
+    local input = Instance.new('TextBox', container)
+
+    input.Size = UDim2.new(0.9, 0, 0, 45)
+    input.Position = UDim2.new(0.05, 0, 0, 85)
+    input.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    input.PlaceholderText = '\u{e01}\u{e23}\u{e2d}\u{e01}\u{e04}\u{e35}\u{e22}\u{e4c}\u{e17}\u{e35}\u{e48}\u{e19}\u{e35}\u{e48}...'
+    input.Text = ''
+    input.TextColor3 = Color3.new(1, 1, 1)
+    input.TextSize = 16
+
+    Instance.new('UICorner', input)
+
+    local submit = Instance.new('TextButton', container)
+
+    submit.Size = UDim2.new(0.9, 0, 0, 45)
+    submit.Position = UDim2.new(0.05, 0, 0, 145)
+    submit.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+    submit.Text = '\u{e22}\u{e37}\u{e19}\u{e22}\u{e31}\u{e19} (SUBMIT)'
+    submit.TextColor3 = Color3.new(1, 1, 1)
+    submit.TextSize = 18
+    submit.Font = Enum.Font.SourceSansBold
+
+    Instance.new('UICorner', submit)
+
+    local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+    local hum = char:WaitForChild('Humanoid')
+
+    hum.WalkSpeed = 0
+    hum.JumpPower = 0
+
+    submit.MouseButton1Click:Connect(function()
+        if input.Text == key then
+            hum.WalkSpeed = 16
+            hum.JumpPower = 50
+
+            keyGui:Destroy()
+        else
+            input.Text = ''
+            input.PlaceholderText = '\u{e04}\u{e35}\u{e22}\u{e4c}\u{e1c}\u{e34}\u{e14}!'
+            submit.BackgroundColor3 = Color3.new(1, 0, 0)
+
+            task.wait(1)
+
+            submit.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+        end
+    end)
+end)
+task.spawn(function()
+    local Players = game:GetService('Players')
+    local sg = Instance.new('ScreenGui', Players.LocalPlayer:WaitForChild('PlayerGui'))
+
+    sg.Name = 'Kriz_Notification'
+    sg.ResetOnSpawn = false
+
+    local notifyFrame = Instance.new('Frame', sg)
+
+    notifyFrame.Size = UDim2.new(0, 300, 0, 150)
+    notifyFrame.Position = UDim2.new(0.5, -150, 0.4, -75)
+    notifyFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+    notifyFrame.BackgroundTransparency = 0.2
+    notifyFrame.BorderSizePixel = 0
+
+    local stroke = Instance.new('UIStroke', notifyFrame)
+
+    stroke.Color = Color3.fromRGB(0, 180, 255)
+    stroke.Thickness = 2
+
+    local corner = Instance.new('UICorner', notifyFrame)
+
+    corner.CornerRadius = UDim.new(0, 10)
+
+    local title = Instance.new('TextLabel', notifyFrame)
+
+    title.Size = UDim2.new(1, 0, 0, 40)
+    title.Text = '\u{e41}\u{e08}\u{e49}\u{e07}\u{e40}\u{e15}\u{e37}\u{e2d}\u{e19}'
+    title.TextColor3 = Color3.new(1, 1, 1)
+    title.TextSize = 20
+    title.Font = Enum.Font.GothamBold
+    title.BackgroundTransparency = 1
+
+    local desc = Instance.new('TextLabel', notifyFrame)
+
+    desc.Size = UDim2.new(1, -20, 0, 60)
+    desc.Position = UDim2.new(0, 10, 0, 45)
+    desc.Text = '\u{e01}\u{e23}\u{e38}\u{e13}\u{e32}\u{e04}\u{e25}\u{e34}\u{e01}\u{e17}\u{e35}\u{e48}\u{e2b}\u{e31}\u{e27}\u{e02}\u{e49}\u{e2d} KRIZ HUB 2 \u{e04}\u{e23}\u{e31}\u{e49}\u{e07}\n\u{e40}\u{e1e}\u{e37}\u{e48}\u{e2d}\u{e40}\u{e1b}\u{e34}\u{e14}\u{e40}\u{e21}\u{e19}\u{e39}\u{e04}\u{e23}\u{e31}\u{e1a}'
+    desc.TextColor3 = Color3.fromRGB(200, 200, 200)
+    desc.TextSize = 16
+    desc.Font = Enum.Font.Gotham
+    desc.BackgroundTransparency = 1
+    desc.TextWrapped = true
+
+    local closeBtn = Instance.new('TextButton', notifyFrame)
+
+    closeBtn.Size = UDim2.new(0, 100, 0, 35)
+    closeBtn.Position = UDim2.new(0.5, -50, 1, -45)
+    closeBtn.Text = '\u{e23}\u{e31}\u{e1a}\u{e17}\u{e23}\u{e32}\u{e1a}'
+    closeBtn.BackgroundColor3 = Color3.fromRGB(0, 180, 255)
+    closeBtn.TextColor3 = Color3.new(1, 1, 1)
+    closeBtn.Font = Enum.Font.GothamBold
+    closeBtn.BorderSizePixel = 0
+
+    local btnCorner = Instance.new('UICorner', closeBtn)
+
+    btnCorner.CornerRadius = UDim.new(0, 5)
+
+    closeBtn.MouseButton1Click:Connect(function()
+        sg:Destroy()
+    end)
+
+    local dragging, dragStart, startPos
+
+    notifyFrame.InputBegan:Connect(function(input) end)
+    game:GetService('UserInputService').InputChanged:Connect(function(input)
+        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+            notifyFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + (input.Position - dragStart).X, startPos.Y.Scale, startPos.Y.Offset + (input.Position - dragStart).Y)
+        end
+    end)
+    notifyFrame.InputEnded:Connect(function(input) end)
+end)
