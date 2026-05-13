@@ -1,0 +1,415 @@
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+
+-- [[ SERVICES ]]
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
+local TweenService = game:GetService("TweenService")
+local Workspace = game:GetService("Workspace")
+local CollectionService = game:GetService("CollectionService")
+local UIS = game:GetService("UserInputService")
+local LocalPlayer = Players.LocalPlayer
+
+-- [[ GLOBAL VARIABLES ]] [cite: 1, 2]
+_G.AutoFollowPlayers = false
+_G.AutoHitNearestPlayer = false
+_G.AutoHoldFruit = false
+_G.AutoServerHop = false
+_G.AutoEnablePvp = false
+_G.AutoFarm = false
+_G.AutoAttack = false
+_G.AHP = false
+
+local FlyHeight = 0 [cite: 13, 14]
+local FlySpeed = 300 [cite: 15]
+local CheckDistance = 15 [cite: 16]
+local SERVER_HOP_TIME = 300 [cite: 31]
+local pointsPerClick = 1 [cite: 9]
+local statsToAdd = {"Melee"}
+local infiniteJump = false
+local speedValue = 16
+local jumpValue = 50
+
+-- [[ WINDOW SETUP ]]
+local Window = WindUI:CreateWindow({
+    Title = "FIATX2 HUB [Bata]",
+    Icon = "rbxassetid://134810315636739",
+    Author = "FIATX2 HUB",
+    Folder = "FIATX2_COMBINED_DATA", [cite: 2]
+    Size = UDim2.fromOffset(580, 460),
+    Transparent = true,
+    Theme = "Dark",
+})
+
+-- [[ TABS SETUP ]]
+local M = Window:Tab({Title = "Main", Icon = "menu"})
+local P = Window:Tab({Title = "PvP", Icon = "swords"})
+local Pl = Window:Tab({Title = "player", Icon = "user"})
+local St = Window:Tab({Title = "Status", Icon = "bar-chart"})
+local S = Window:Tab({Title = "Settings", Icon = "settings"})
+
+-- ตัวแปรเสริมเพื่อให้ปุ่มที่เรียกใช้ MainTab ไม่ Error
+local MainTab = M 
+
+-- ============================================================
+-- MAIN TAB
+-- ============================================================
+M:Dropdown({
+    Title = "Weapon Type",
+    Desc = "เลือกอาวุธฟาม",
+    Values = {"Melee", "Sword", "Blox Fruit", "Gun"},
+    Value = "Melee",
+    Callback = function(option) [cite: 3]
+        Eq(option)
+    end
+})
+
+M:Toggle({
+    Title = "Auto Farm Level",
+    Desc = "ออโต้ฟาร์มเลเวล",
+    Default = false,
+    Callback = function(state)
+        _G.AutoFarm = state
+        if not state then NM = nil end
+    end
+})
+
+-- ============================================================
+-- STATUS TAB
+-- ============================================================
+St:Section({ Title = "Status" })
+
+St:Toggle({
+    Title = "Auto Up Stats", [cite: 4]
+    Desc = "ออโต้อัพสแตค",
+    Value = false,
+    Callback = function(Value)
+        auto_stats = Value
+        if auto_stats then
+            task.spawn(function()
+                while auto_stats do
+                    task.wait(0.1)
+                    for _, stat in ipairs(statsToAdd) do [cite: 5]
+                        pcall(function()
+                            ReplicatedStorage.Remotes.CommF_:InvokeServer("AddPoint", stat, pointsPerClick) [cite: 6]
+                        end)
+                    end [cite: 7]
+                end
+            end)
+        end
+    end
+})
+
+M:Dropdown({ -- Dropdown Stat อยู่ในหน้า Main ตามโค้ดต้นฉบับ
+    Title = "Select Stat",
+    Values = {"Melee", "Defense", "Sword", "Gun", "Demon Fruit"}, [cite: 8]
+    Multi = true,
+    Default = {"Melee"},
+    Callback = function(Value)
+        statsToAdd = Value
+    end
+})
+
+St:Slider({
+    Title = "PoinperUpgrade",
+    Desc = "ปรับpoin",
+    Step = 1,
+    Value = {Min = 1, Max = 9999, Default = 1}, [cite: 9]
+    Callback = function(value)
+        pointsPerClick = value
+    end
+})
+
+-- ============================================================
+-- PVP TAB
+-- ============================================================
+P:Section({ Title = "Auto Bounty" })
+
+P:Toggle({
+    Title = "Auto Follow Players",
+    Desc = "ติดตามผู้เล่นที่ใกล้ที่สุดอัตโนมัติ",
+    Default = false, [cite: 10]
+    Callback = function(state) _G.AutoFollowPlayers = state end
+})
+
+P:Toggle({
+    Title = "Auto Hold Fruit",
+    Desc = "ถือผลไม้ออกมาใช้งานตลอดเวลา [cite: 2, 4]",
+    Default = false,
+    Callback = function(state) _G.AutoHoldFruit = state end
+})
+
+P:Toggle({
+    Title = "Auto Enable PvP",
+    Desc = "เปิดโหมด PvP อัตโนมัติ [cite: 37, 38]",
+    Default = false,
+    Callback = function(state) _G.AutoEnablePvp = state end
+})
+
+P:Section({ Title = "M1" })
+
+P:Toggle({
+    Title = "M 1 Pain Fruit",
+    Desc = "M1 ผลตีนหมี",
+    Default = false,
+    Callback = function(state) _G.AutoHitNearestPlayer = state end
+})
+
+P:Toggle({
+    Title = "M1 Leopard fruit",
+    Desc = "M1 ผลเสือ", [cite: 12]
+    Default = false,
+    Callback = function(v) _G.AHP = v end
+})
+
+-- ============================================================
+-- PLAYER TAB
+-- ============================================================
+Pl:Section({ Title = "Player-related" })
+
+Pl:Toggle({
+    Title = "infinity jump",
+    Desc = "กระโดดไม่จำกัด", [cite: 43]
+    Value = false,
+    Callback = function(v) infiniteJump = v end
+})
+
+Pl:Slider({
+    Title = "Hack speed",
+    Desc = "วิ่งเร็ว",
+    Value = {Min = 16, Max = 120, Default = 16},
+    Callback = function(v) speedValue = v end
+})
+
+Pl:Slider({
+    Title = "Power Jump",
+    Desc = "พลังกระโดด",
+    Value = {Min = 50, Max = 200, Default = 50}, [cite: 44]
+    Callback = function(v) jumpValue = v end
+})
+
+Pl:Button({
+    Title = "Fly",
+    Desc = "บิน",
+    Callback = function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Fly-gui-v3-30439"))()
+    end
+})
+
+-- ============================================================
+-- SETTINGS TAB
+-- ============================================================
+S:Section({ Title = "Settings" })
+
+S:Keybind({
+    Title = "Keybind",
+    Desc = "Keybind to open ui",
+    Value = "G",
+    Callback = function(v)
+        Window:SetToggleKey(Enum.KeyCode[v])
+    end
+})
+
+S:Section({ Title = "FAST ATTACK" })
+
+S:Toggle({
+    Title = "Fasta ttack",
+    Desc = "ฟาสแอกค์แท็ก",
+    Default = false,
+    Callback = function(state)
+        _G.AutoAttack = state
+        if not state then NM = nil end [cite: 13]
+    end
+})
+
+-- Server Management (แสดงผลใน Tab Main ตามตัวแปร MainTab)
+MainTab:Section({ Title = "Server Management" })
+
+MainTab:Toggle({
+    Title = "Auto Server Hop (5 Min)",
+    Desc = "เปลี่ยนเซิร์ฟเวอร์อัตโนมัติเมื่อครบเวลา [cite: 31, 39]", [cite: 11]
+    Default = false,
+    Callback = function(state) _G.AutoServerHop = state end
+})
+
+MainTab:Button({
+    Title = "Rejoin Server",
+    Callback = function() TeleportService:Teleport(game.PlaceId, LocalPlayer) end
+})
+
+-- ============================================================
+-- BACKGROUND SYSTEMS (Logic)
+-- ============================================================
+
+-- [1] Auto Hold Fruit Logic [cite: 2, 3, 5, 7, 14, 15, 16]
+task.spawn(function()
+    while true do
+        task.wait(1)
+        if _G.AutoHoldFruit then
+            pcall(function()
+                local backpack = LocalPlayer:FindFirstChild("Backpack")
+                local character = LocalPlayer.Character
+                if backpack and character then [cite: 14]
+                    for _, tool in ipairs(backpack:GetChildren()) do
+                        if tool:IsA("Tool") and tostring(tool.ToolTip):lower():find("blox fruit") then
+                            tool.Parent = character [cite: 15]
+                            break
+                        end
+                    end
+                end [cite: 16]
+            end)
+        end
+    end
+end)
+
+-- [2] Auto Follow & Target Logic [cite: 8, 9, 10, 12, 13, 19, 17-31]
+local function GetNextPlayer(Ignored)
+    local MyChar = LocalPlayer.Character
+    local MyHRP = MyChar and MyChar:FindFirstChild("HumanoidRootPart")
+    if not MyHRP then return nil end
+
+    local Closest = nil [cite: 17]
+    local Distance = math.huge
+    for _, v in pairs(Players:GetPlayers()) do
+        if v ~= LocalPlayer and not Ignored[v] then
+            local Char = v.Character
+            local HRP = Char and Char:FindFirstChild("HumanoidRootPart")
+            local Hum = Char and Char:FindFirstChildOfClass("Humanoid")
+            if HRP and Hum and Hum.Health > 0 then [cite: 18]
+                local Dist = (HRP.Position - MyHRP.Position).Magnitude
+                if Dist < Distance then
+                    Distance = Dist
+                    Closest = v [cite: 19]
+                end
+            end
+        end
+    end
+    return Closest
+end
+
+task.spawn(function()
+    local Ignored = {}
+    while true do
+        if not _G.AutoFollowPlayers then
+            task.wait(0.2)
+            continue [cite: 20]
+        end
+        local Target = GetNextPlayer(Ignored)
+        if not Target then
+            Ignored = {}
+            task.wait(1)
+            continue
+        end
+        local Char = Target.Character
+        local Hum = Char and Char:FindFirstChildOfClass("Humanoid") [cite: 21]
+        local HRP = Char and Char:FindFirstChild("HumanoidRootPart")
+        if Hum and HRP and Hum.Health > 0 then
+            local OldHealth = Hum.Health
+            local LastDamage = tick()
+            local StartedCheck = false
+            while _G.AutoFollowPlayers and Target.Parent and Hum.Health > 0 do [cite: 22]
+                local MyChar = LocalPlayer.Character
+                local MyHRP = MyChar and MyChar:FindFirstChild("HumanoidRootPart")
+                if MyHRP then
+                    local TargetPos = HRP.Position + Vector3.new(0, _G.FlyHeight or 0, 0) [cite: 23]
+                    local Offset = TargetPos - MyHRP.Position
+                    local Distance = Offset.Magnitude [cite: 24]
+                    if Distance > 3 then
+                        local Direction = Offset.Unit
+                        MyHRP.CFrame = MyHRP.CFrame + (Direction * (_G.FlySpeed or 250) * task.wait()) [cite: 25]
+                    end
+                    MyHRP.CFrame = CFrame.new(MyHRP.Position, HRP.Position) [cite: 26]
+                    if Distance <= CheckDistance then [cite: 27]
+                        if not StartedCheck then
+                            StartedCheck = true
+                            LastDamage = tick()
+                        end [cite: 28]
+                        if Hum.Health < OldHealth then
+                            OldHealth = Hum.Health [cite: 29]
+                            LastDamage = tick()
+                        end
+                        if tick() - LastDamage >= 3 then [cite: 30]
+                            Ignored[Target] = true
+                            break
+                        end
+                    end [cite: 31]
+                end
+                RunService.Heartbeat:Wait()
+            end
+        end
+        task.wait(0.1)
+    end
+end)
+
+-- [3] Server Hop Logic [cite: 31, 33, 34, 35, 36, 32-35]
+task.spawn(function()
+    while true do
+        task.wait(SERVER_HOP_TIME) [cite: 32]
+        if _G.AutoServerHop then
+            pcall(function()
+                local servers = {}
+                local cursor = ""
+                repeat
+                    local url = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100&cursor=" .. cursor [cite: 33]
+                    local data = HttpService:JSONDecode(game:HttpGet(url))
+                    for _, v in pairs(data.data) do
+                        if v.playing < v.maxPlayers and v.id ~= game.JobId then
+                            table.insert(servers, v.id) [cite: 34]
+                        end
+                    end
+                    cursor = data.nextPageCursor or ""
+                until cursor == "" [cite: 35]
+                if #servers > 0 then
+                    TeleportService:TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], LocalPlayer)
+                end
+            end)
+        end
+    end
+end)
+
+-- [4] Auto PvP Enable Logic [cite: 37, 38, 36]
+task.spawn(function()
+    while true do [cite: 36]
+        task.wait(5)
+        if _G.AutoEnablePvp then
+            pcall(function()
+                ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("CommF_"):InvokeServer("EnablePvp")
+            end)
+        end
+    end
+end)
+
+-- ระบบควบคุม Movement (Speed/Jump)
+RunService.Heartbeat:Connect(function()
+    local char = LocalPlayer.Character
+    local hum = char and char:FindFirstChildOfClass("Humanoid")
+    if hum then
+        if hum.WalkSpeed ~= speedValue then hum.WalkSpeed = speedValue end
+        if hum.JumpPower ~= jumpValue then hum.JumpPower = jumpValue end [cite: 42]
+    end
+end)
+
+UIS.JumpRequest:Connect(function()
+    if infiniteJump then
+        local char = LocalPlayer.Character
+        local hum = char and char:FindFirstChildOfClass("Humanoid")
+        if hum then hum:ChangeState(Enum.HumanoidStateType.Jumping) end
+    end
+end)
+
+-- ระบบ Auto Haki
+task.spawn(function()
+    while true do [cite: 71]
+        pcall(function()
+            local char = LocalPlayer.Character
+            if char and not char:FindFirstChild("HasBuso") then
+                ReplicatedStorage.Remotes.CommF_:InvokeServer("Buso")
+            end
+        end)
+        task.wait(0.1)
+    end
+end)
+
+-- (ส่วนอื่นๆ ของโค้ดเช่น Quest System และ Auto Farm ยังคงเดิมตามต้นฉบับครับ)
