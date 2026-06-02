@@ -1,1 +1,509 @@
+import discord
+from discord.ext import commands
+import random
+import tempfile
+import os
+import time
+from collections import defaultdict
 
+TOKEN = "PUT_YOUR_BOT_TOKEN"
+
+ALLOWED_GUILD = 1500124838382145717
+
+intents = discord.Intents.default()
+intents.message_content = True
+intents.members = True
+bot = commands.Bot(command_prefix='.', intents=intents, help_command=None)
+
+# =========================
+#   PROTECTION CONFIG
+# =========================
+
+SPAM_LIMIT       = 5
+SPAM_WINDOW      = 5.0
+NEW_ACCOUNT_DAYS = 7
+NUKE_LIMIT       = 3
+NUKE_WINDOW      = 10.0
+
+spam_tracker = defaultdict(list)
+nuke_tracker = defaultdict(list)
+kick_tracker = defaultdict(list)
+
+# =========================
+#        OPCODES
+# =========================
+
+OPCODES = {
+    "LOAD_CONST": 0x01,
+    "LOAD_VAR":   0x02,
+    "STORE_VAR":  0x03,
+    "CONCAT":     0x04,
+    "CALL":       0x05,
+    "CHAR":       0x06,
+    "XOR":        0x07,
+    "HALT":       0xFF,
+}
+
+# =========================
+#     SAFE RANDOM VARS
+# =========================
+
+def rand_var(n=10):
+    first = random.choice(
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
+    )
+    rest = "".join(
+        random.choices(
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789",
+            k=n - 1
+        )
+    )
+    return first + rest
+
+def used_names():
+    seen = set()
+    def get(n=10):
+        while True:
+            v = rand_var(n)
+            if v not in seen:
+                seen.add(v)
+                return v
+    return get
+
+new_var = used_names()
+
+# =========================
+#      HEAVY NUMBERS
+# =========================
+
+def heavy(n):
+    mode = random.randint(0, 2)
+    if mode == 0:
+        a = random.randint(1000, 9999)
+        return f"({n + a}-{a})"
+    elif mode == 1:
+        a = random.randint(1, 127)
+        return f"bit32.bxor({n ^ a},{a})"
+    else:
+        a = random.randint(10, 99)
+        b = random.randint(10, 99)
+        return f"({n + a * b}-{a}*{b})"
+
+# =========================
+#          JUNK
+# =========================
+
+def junk(n=4):
+    lines = []
+    for _ in range(n):
+        v = new_var()
+        lines.append(f"local {v}={random.randint(1,9999)};")
+    return "".join(lines)
+
+# =========================
+#   DEAD CODE INJECTION
+# =========================
+
+def dead_code(n=3):
+    lines = []
+    for _ in range(n):
+        v1, v2 = new_var(), new_var()
+        op = random.choice(["+", "-", "*"])
+        a, b = random.randint(1, 999), random.randint(1, 999)
+        lines.append(
+            f"local {v1}={heavy(a)};local {v2}={v1}{op}{heavy(b)};_{v2}={v2};"
+        )
+    return "".join(lines)
+
+# =========================
+#   CONTROL FLOW FLATTEN
+# =========================
+
+def flatten_wrapper(inner_code: str) -> str:
+    state_var = new_var()
+    max_state = random.randint(5, 8)
+    target = random.randint(1, max_state)
+
+    branches = []
+    for i in range(1, max_state + 1):
+        if i == target:
+            branches.append(
+                f"if {state_var}=={heavy(i)} then\n{inner_code}\n"
+                f"{state_var}={heavy(max_state + 1)}"
+            )
+        else:
+            dummy = new_var()
+            branches.append(
+                f"if {state_var}=={heavy(i)} then\n"
+                f"local {dummy}={heavy(random.randint(1,999))}\n"
+                f"{state_var}={heavy(i+1)}"
+            )
+
+    body = "\nelse".join(branches) + "\nend\n"
+
+    return f"""
+{junk(3)}
+local {state_var}={heavy(target)}
+repeat
+{body}
+until {state_var}>={heavy(max_state + 1)}
+"""
+
+# =========================
+#   MULTI-LAYER ENCODING
+# =========================
+
+def multi_xor_encode(data: bytes, keys: list) -> list:
+    result = list(data)
+    for key in keys:
+        result = [b ^ key for b in result]
+    return result
+
+# =========================
+#   UPGRADED BYTECODE COMPILER
+# =========================
+
+def compile_to_bytecode_v2(lua_code):
+    bytecode = []
+
+    keys = [random.randint(1, 255) for _ in range(3)]
+    encoded = multi_xor_encode(lua_code.encode("utf-8"), keys)
+
+    for i, key in enumerate(keys):
+        bytecode.append((OPCODES["LOAD_CONST"], key))
+        bytecode.append((OPCODES["STORE_VAR"], i + 1))
+
+    for b in encoded:
+        bytecode.append((OPCODES["LOAD_CONST"], b))
+        for i in range(len(keys), 0, -1):
+            bytecode.append((OPCODES["LOAD_VAR"], i))
+            bytecode.append((OPCODES["XOR"], 0))
+        bytecode.append((OPCODES["CHAR"], 0))
+        bytecode.append((OPCODES["CONCAT"], 0))
+
+    bytecode.append((OPCODES["CALL"], 0))
+    bytecode.append((OPCODES["HALT"], 0))
+    return bytecode
+
+# =========================
+#   UPGRADED VM EMITTER
+# =========================
+
+def emit_vm_v2(bytecode):
+    V = {
+        k: new_var()
+        for k in [
+            "instructions", "ip", "stack", "sp",
+            "registers", "acc", "op", "arg",
+            "tmp", "fn", "loader"
+        ]
+    }
+
+    bc = []
+    for op, arg in bytecode:
+        bc.append(f"{{{heavy(op)},{heavy(arg)}}}")
+    bc_str = ",".join(bc)
+
+    vm_core = f"""
+local {V['op']}={V['instructions']}[{V['ip']}][1]
+local {V['arg']}={V['instructions']}[{V['ip']}][2]
+{V['ip']}={V['ip']}+1
+if {V['op']}=={heavy(OPCODES['LOAD_CONST'])} then
+    {V['sp']}={V['sp']}+1
+    {V['stack']}[{V['sp']}]={V['arg']}
+elseif {V['op']}=={heavy(OPCODES['STORE_VAR'])} then
+    {V['registers']}[{V['arg']}]={V['stack']}[{V['sp']}]
+    {V['sp']}={V['sp']}-1
+elseif {V['op']}=={heavy(OPCODES['LOAD_VAR'])} then
+    {V['sp']}={V['sp']}+1
+    {V['stack']}[{V['sp']}]={V['registers']}[{V['arg']}]
+elseif {V['op']}=={heavy(OPCODES['XOR'])} then
+    local a={V['stack']}[{V['sp']}]
+    {V['sp']}={V['sp']}-1
+    local b={V['stack']}[{V['sp']}]
+    {V['sp']}={V['sp']}-1
+    {V['sp']}={V['sp']}+1
+    {V['stack']}[{V['sp']}]=bit32.bxor(a,b)
+elseif {V['op']}=={heavy(OPCODES['CHAR'])} then
+    local c={V['stack']}[{V['sp']}]
+    {V['sp']}={V['sp']}-1
+    {V['sp']}={V['sp']}+1
+    {V['stack']}[{V['sp']}]=string.char(c)
+elseif {V['op']}=={heavy(OPCODES['CONCAT'])} then
+    local s={V['stack']}[{V['sp']}]
+    {V['sp']}={V['sp']}-1
+    {V['acc']}={V['acc']}..s
+elseif {V['op']}=={heavy(OPCODES['CALL'])} then
+    local {V['loader']}=loadstring or load
+    local {V['fn']},err={V['loader']}({V['acc']})
+    if {V['fn']} then pcall({V['fn']}) else warn(err) end
+elseif {V['op']}=={heavy(OPCODES['HALT'])} then
+    break
+end
+"""
+
+    vm = f"""
+{dead_code(6)}
+local {V['instructions']}={{{bc_str}}}
+local {V['ip']}=1
+local {V['stack']}={{}}
+local {V['sp']}=0
+local {V['registers']}={{}}
+local {V['acc']}=""
+{dead_code(4)}
+while {V['ip']}<=#{V['instructions']} do
+{vm_core}
+end
+"""
+    return vm.strip()
+
+def obf_lua_v2(code):
+    bytecode = compile_to_bytecode_v2(code)
+    vm = emit_vm_v2(bytecode)
+    return flatten_wrapper(vm)
+
+# =========================
+#   HELPER: GET LUA CODE
+# =========================
+
+async def get_lua_code(ctx):
+    if ctx.message.attachments:
+        file = ctx.message.attachments[0]
+        if not (file.filename.endswith(".lua") or file.filename.endswith(".txt")):
+            return None, "รองรับไฟล์ .lua และ .txt เท่านั้น"
+        data = await file.read()
+        return data.decode("utf-8", errors="ignore"), None
+
+    content = ctx.message.content
+    parts = content.split(None, 1)
+    if len(parts) < 2 or not parts[1].strip():
+        return None, "ใส่ไฟล์ .lua / .txt หรือพิมพ์โค้ดตรงๆ หลังคำสั่ง"
+
+    raw = parts[1].strip()
+    if raw.startswith("```"):
+        raw = raw.split("\n", 1)[-1] if "\n" in raw else raw[3:]
+        if raw.endswith("```"):
+            raw = raw[:-3]
+        raw = raw.strip()
+
+    if not raw:
+        return None, "ไม่พบโค้ด"
+    return raw, None
+
+# =========================
+#   HELPER: SEND AS FILE
+# =========================
+
+async def send_lua_file(ctx, lua_code: str, filename: str, label: str):
+    tmp = tempfile.NamedTemporaryFile(
+        delete=False, suffix=".lua", mode="w", encoding="utf-8"
+    )
+    tmp.write(lua_code)
+    tmp.close()
+    try:
+        await ctx.reply(
+            content=label,
+            file=discord.File(tmp.name, filename=filename)
+        )
+    finally:
+        os.remove(tmp.name)
+
+# =========================
+#   PROTECTION HELPERS
+# =========================
+
+def track_rate(tracker, user_id, limit, window):
+    now = time.time()
+    timestamps = tracker[user_id]
+    tracker[user_id] = [t for t in timestamps if now - t < window]
+    tracker[user_id].append(now)
+    return len(tracker[user_id]) >= limit
+
+async def punish(guild, member, reason):
+    try:
+        await guild.ban(member, reason=reason, delete_message_days=1)
+        if guild.system_channel:
+            await guild.system_channel.send(
+                f"🔨 **Auto-ban** | {member.mention} (`{member.id}`)\n"
+                f"เหตุผล: {reason}"
+            )
+    except (discord.Forbidden, discord.HTTPException):
+        pass
+
+# =========================
+#   on_message
+# =========================
+
+@bot.event
+async def on_message(message):
+    if message.author.bot:
+        return
+    if not message.guild or message.guild.id != ALLOWED_GUILD:
+        return
+
+    invite_keywords = [
+        "discord.com/oauth2/authorize",
+        "discord.gg/",
+        "discordapp.com/oauth2/authorize",
+    ]
+    lower = message.content.lower()
+    if any(kw in lower for kw in invite_keywords):
+        try:
+            await message.delete()
+        except discord.Forbidden:
+            pass
+        await message.channel.send(
+            f"{message.author.mention} ❌ ห้ามส่งลิงก์เชิญบอทในเซิร์ฟเวอร์นี้"
+        )
+        return
+
+    if not message.author.guild_permissions.manage_messages:
+        if track_rate(spam_tracker, message.author.id, SPAM_LIMIT, SPAM_WINDOW):
+            try:
+                await message.delete()
+            except discord.Forbidden:
+                pass
+            await punish(
+                message.guild,
+                message.author,
+                f"Anti-spam: ส่งข้อความ {SPAM_LIMIT} ครั้งใน {SPAM_WINDOW} วินาที"
+            )
+            return
+
+    await bot.process_commands(message)
+
+# =========================
+#   on_member_join
+# =========================
+
+@bot.event
+async def on_member_join(member):
+    if member.guild.id != ALLOWED_GUILD:
+        return
+    account_age_days = (discord.utils.utcnow() - member.created_at).days
+    if account_age_days < NEW_ACCOUNT_DAYS:
+        await punish(
+            member.guild,
+            member,
+            f"Auto-ban: บัญชีใหม่ (อายุ {account_age_days} วัน < {NEW_ACCOUNT_DAYS} วัน)"
+        )
+
+# =========================
+#   on_guild_channel_delete
+# =========================
+
+@bot.event
+async def on_guild_channel_delete(channel):
+    if channel.guild.id != ALLOWED_GUILD:
+        return
+    try:
+        async for entry in channel.guild.audit_logs(
+            limit=1, action=discord.AuditLogAction.channel_delete
+        ):
+            executor = entry.user
+            if executor.bot:
+                return
+            if executor.guild_permissions.administrator:
+                return
+            if track_rate(nuke_tracker, executor.id, NUKE_LIMIT, NUKE_WINDOW):
+                await punish(
+                    channel.guild,
+                    executor,
+                    f"Anti-nuke: ลบช่อง {NUKE_LIMIT} ช่องใน {NUKE_WINDOW} วินาที"
+                )
+    except (discord.Forbidden, discord.HTTPException):
+        pass
+
+# =========================
+#   on_member_remove
+# =========================
+
+@bot.event
+async def on_member_remove(member):
+    if member.guild.id != ALLOWED_GUILD:
+        return
+    try:
+        async for entry in member.guild.audit_logs(
+            limit=1, action=discord.AuditLogAction.kick
+        ):
+            executor = entry.user
+            if executor.bot:
+                return
+            if executor.guild_permissions.administrator:
+                return
+            if track_rate(kick_tracker, executor.id, NUKE_LIMIT, NUKE_WINDOW):
+                await punish(
+                    member.guild,
+                    executor,
+                    f"Anti-nuke: kick สมาชิก {NUKE_LIMIT} คนใน {NUKE_WINDOW} วินาที"
+                )
+    except (discord.Forbidden, discord.HTTPException):
+        pass
+
+# =========================
+#   CHECK: ALLOWED GUILD
+# =========================
+
+async def guild_check(ctx):
+    return ctx.guild and ctx.guild.id == ALLOWED_GUILD
+
+# =========================
+#   .obf
+# =========================
+
+@bot.command(name="obf")
+async def obf(ctx):
+    if not await guild_check(ctx):
+        return
+    code, err = await get_lua_code(ctx)
+    if err:
+        await ctx.reply(err)
+        return
+    try:
+        result = obf_lua_v2(code)
+        await send_lua_file(ctx, result, "obf_vm.lua", "✅ OBF VM เสร็จ")
+    except Exception as e:
+        await ctx.reply(f"❌ Error: {e}")
+
+# =========================
+#   .help
+# =========================
+
+@bot.command(name="help")
+async def help_cmd(ctx):
+    if not await guild_check(ctx):
+        return
+    embed = discord.Embed(
+        title="📖 คำสั่งทั้งหมด",
+        color=discord.Color.blurple()
+    )
+    embed.add_field(
+        name=".obf [ไฟล์ .lua/.txt หรือโค้ด]",
+        value=(
+            "Obfuscate โค้ด Lua ด้วย VM bytecode + Multi-layer XOR + Control Flow Flattening\n"
+            "รองรับทั้งแนบไฟล์ และพิมพ์โค้ดตรงๆ หลังคำสั่ง"
+        ),
+        inline=False
+    )
+    embed.add_field(
+        name=".help",
+        value="แสดงคำสั่งทั้งหมด (หน้านี้)",
+        inline=False
+    )
+    embed.add_field(
+        name="🛡️ ระบบป้องกันอัตโนมัติ",
+        value=(
+            "**Anti-spam** — ส่งข้อความเกิน 5 ครั้ง/5 วินาที → ban\n"
+            "**Anti-nuke** — ลบช่อง/kick เกิน 3 ครั้ง/10 วินาที → ban\n"
+            "**Auto-ban** — บัญชีอายุน้อยกว่า 7 วัน → ban ทันที"
+        ),
+        inline=False
+    )
+    embed.set_footer(text="ใช้งานได้เฉพาะเซิร์ฟเวอร์ที่กำหนดเท่านั้น")
+    await ctx.reply(embed=embed)
+
+# =========================
+#          RUN
+# =========================
+
+bot.run(TOKEN)
